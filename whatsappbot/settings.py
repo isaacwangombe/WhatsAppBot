@@ -20,29 +20,37 @@ MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 # development
-if config('MODE')=="dev":
-   DATABASES = {
-       'default': {
-           'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': config('DB_NAME'),
-           'USER': config('DB_USER'),
-           'PASSWORD': config('DB_PASSWORD'),
-           'HOST': config('DB_HOST'),
-           'PORT': '',
-       }
+# if config('MODE')=="dev":
+#    DATABASES = {
+#        'default': {
+#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#            'NAME': config('DB_NAME'),
+#            'USER': config('DB_USER'),
+#            'PASSWORD': config('DB_PASSWORD'),
+#            'HOST': config('DB_HOST'),
+#            'PORT': '',
+#        }
        
-   }
-# production
-else:
-   DATABASES = {
-       'default': dj_database_url.config(
-           default=config('DATABASE_URL')
-       )
-   }
+#    }
+# # production
+# else:
+#    DATABASES = {
+#        'default': dj_database_url.config(
+#            default=config('DATABASE_URL')
+#        )
+#    }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'chatbot',
+        'USER': 'mariga',
+    'PASSWORD':'password',
+    }
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -174,3 +182,5 @@ django_heroku.settings(locals())
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+WHATSAPP_URL = 'https://graph.facebook.com/v16.0/108118905582584/messages'
+WHATSAPP_TOKEN = 'Bearer EAAK1ZAhirSFABANTrSZBg0UfQpz916nnBH9NFzGhmXrNIsbDvMTtI6uQ6SZBsoHo2bKDh7tpmJS8LpLC4SB8DCsUJEj7tOjN5ZCimjgk6UFwwqmnaRdcjPotCDjHjVdAu06YLoMREiyFKm4aKXKT4Ksuq3q11Q5ZBbc2LGYt1t8bxZAAIYIoZCISlPMRj1KD7sRRRZALSCS4uAZDZD'
