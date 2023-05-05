@@ -13,7 +13,7 @@ def sendWhatsappMessage(message,phoneNumber):
   return ans
 
 
-# phoneNumber = "254706551562"
-# message = "This works!! \n AWESOME \n "
+phoneNumber = "254706551562"
+message = "This works!! \n AWESOME \n "
 
-# sendWhatsappMessage(message, phoneNumber)
+sendWhatsappMessage(message, phoneNumber)
