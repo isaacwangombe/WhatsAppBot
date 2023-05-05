@@ -1,5 +1,6 @@
 from django.urls import path, include
-from . import views
+from . import views, functions
 urlpatterns = [
-  path('', views.welcome,name = 'home')
+  path('', views.welcome,name = 'home'),
+  path('', functions.sendWhatsappMessage, name = 'send')
 ]
