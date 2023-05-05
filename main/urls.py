@@ -1,6 +1,6 @@
 from django.urls import path, include
-from . import views, functions
+from . import views
 urlpatterns = [
   path('', views.welcome,name = 'home'),
-  path('', functions.sendWhatsappMessage, name = 'send')
+  path('webhook', views.whatsappWebhook, name = 'whatsapp-webhook'),
 ]
