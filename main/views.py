@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from functions import sendWhatsappMessage
 # Create your views here.
 
 
