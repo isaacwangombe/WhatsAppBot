@@ -1,11 +1,11 @@
 from django.conf import settings
 import requests
 
-def sendWhatsappMessage(message):
+def sendWhatsappMessage(message,phoneNumber):
   headers ={"Authorization":settings.WHATSAPP_TOKEN}
   payload ={"messaging_product": "whatsapp",
             "recipient_type": "individual",
-            "to": "254706551562",
+            "to": phoneNumber,
             "type":"text",
             "text":{"body":message}}
   response = requests.post(settings.WHATSAPP_URL, headers=headers, json=payload)
@@ -14,6 +14,6 @@ def sendWhatsappMessage(message):
 
 
 # phoneNumber = "254706551562"
-message = "This works!! \n AWESOME \n "
+# message = "This works!! \n AWESOME \n "
 
-sendWhatsappMessage(message)
+# sendWhatsappMessage(message, phoneNumber)
