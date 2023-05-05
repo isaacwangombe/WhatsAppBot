@@ -9,7 +9,7 @@ from .functions import *
 
 def welcome(request):
 
-    return render(request, 'business/index.html')
+    return render(request, 'business/index.html',{})
 
 
 
