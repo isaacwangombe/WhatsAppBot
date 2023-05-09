@@ -12,3 +12,9 @@ def sendWhatsappMessage(message,phoneNumber):
   ans = response.json()
   return ans
 
+
+
+phoneNumber = '254706551542'
+message = 'RE: message was received'
+sendWhatsappMessage(phoneNumber, message)
+
