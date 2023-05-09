@@ -44,7 +44,7 @@ def whatsappWebhook(request):
             text = entry['changes'][0]['value']['messages'][0]['text']['body']
 
             phoneNumber = '254706551542'
-            message = 'RE: {} was received'.format(text)
+            message = 'RE: message was received'.format(text)
             sendWhatsappMessage(phoneNumber, message)
         except:
           pass
