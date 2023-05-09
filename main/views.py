@@ -46,7 +46,7 @@ def whatsappWebhook(request):
 
             phoneNumber = '254706551542'
             message = 'RE: test was received'
-            sendWhatsappMessage(message, phoneNumber)
+            ans = sendWhatsappMessage(message, phoneNumber)
         except:
           pass
 
