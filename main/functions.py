@@ -16,5 +16,5 @@ def sendWhatsappMessage(message,phoneNumber):
 
 phoneNumber = '254706551542'
 message = 'RE: message was received'
-sendWhatsappMessage(phoneNumber, message)
+ans = sendWhatsappMessage(phoneNumber, message)
 
