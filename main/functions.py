@@ -12,8 +12,3 @@ def sendWhatsappMessage(message,phoneNumber):
   ans = response.json()
   return ans
 
-
-phoneNumber = "254706551542"
-message = "This works!! \n AWESOME \n "
-
-ans = sendWhatsappMessage(message, phoneNumber)
