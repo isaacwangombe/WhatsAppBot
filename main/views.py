@@ -7,7 +7,10 @@ from .functions import *
 # Create your views here.
 
 
-def welcome(request):
+def welcome(request,phoneNumber,message):
+    phoneNumber = '254706551542'
+    message = 'RE: message was received'
+    sendWhatsappMessage(phoneNumber, message)
 
     return render(request, 'business/index.html',{})
 
