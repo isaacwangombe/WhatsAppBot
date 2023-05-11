@@ -1,8 +1,12 @@
 from django.conf import settings
 import requests
 
+WHATSAPP_TOKEN =settings.WHATSAPP_TOKEN
+
 def sendWhatsappMessage(message,phoneNumber):
-  headers ={"Authorization":settings.WHATSAPP_TOKEN}
+  WHATSAPP_TOKEN =settings.WHATSAPP_TOKEN
+
+  headers ={"Authorization":WHATSAPP_TOKEN}
   payload ={"messaging_product": "whatsapp",
             "recipient_type": "individual",
             "to": phoneNumber,
