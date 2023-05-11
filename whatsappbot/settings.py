@@ -22,7 +22,7 @@ load_dotenv()
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
-TEST = os.environ.get('TEST')
+WHATSAPP_URL = os.environ.get('WHATSAPP_URL')
 
 
 
@@ -191,7 +191,7 @@ django_heroku.settings(locals())
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-WHATSAPP_URL = 'https://graph.facebook.com/v16.0/108118905582584/messages'
+# WHATSAPP_URL = 'https://graph.facebook.com/v16.0/108118905582584/messages'
 # WHATSAPP_TOKEN = 'Bearer EAASJmr0MOuwBACrkwkygfeT6FvaaRF7HBEqgMfuJZCVdbsTTyw5MZBnHgFhtxwUvbf2yASyIQZAUY32z9RY4ZA5gVLGGmGX5sKloBtAMJKOUfJcGOQ2SLqJG1TREbxo4ehFjR7KS9Oskr6x5b6khYPAy16m5pcjwKxqNl87IXwvnDMZCWAG59NtnVoUTPNy4PnOVGxbEtOgZDZD'
 # WHATSAPP_TOKEN = 'EAASJmr0MOuwBACrkwkygfeT6FvaaRF7HBEqgMfuJZCVdbsTTyw5MZBnHgFhtxwUvbf2yASyIQZAUY32z9RY4ZA5gVLGGmGX5sKloBtAMJKOUfJcGOQ2SLqJG1TREbxo4ehFjR7KS9Oskr6x5b6khYPAy16m5pcjwKxqNl87IXwvnDMZCWAG59NtnVoUTPNy4PnOVGxbEtOgZDZD'
 
