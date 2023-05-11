@@ -21,9 +21,9 @@ load_dotenv()
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
-WHATSAPP_URL = os.environ.get('WHATSAPP_URL')
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+# WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
+# WHATSAPP_URL = os.environ.get('WHATSAPP_URL')
+# OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 WHATSAPP_TOKEN = 'Bearer EAASJmr0MOuwBACrkwkygfeT6FvaaRF7HBEqgMfuJZCVdbsTTyw5MZBnHgFhtxwUvbf2yASyIQZAUY32z9RY4ZA5gVLGGmGX5sKloBtAMJKOUfJcGOQ2SLqJG1TREbxo4ehFjR7KS9Oskr6x5b6khYPAy16m5pcjwKxqNl87IXwvnDMZCWAG59NtnVoUTPNy4PnOVGxbEtOgZDZD'
 WHATSAPP_URL = 'https://graph.facebook.com/v16.0/108118905582584/messages'
