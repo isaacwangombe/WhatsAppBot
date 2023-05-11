@@ -21,7 +21,7 @@ load_dotenv()
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-# WHATSAPP_TOKEN = os.environ['WHATSAPP_TOKEN']
+WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
 
 
 DEBUG = True
