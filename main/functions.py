@@ -17,7 +17,7 @@ def sendWhatsappMessage(message,phoneNumber):
 
 
 
-phoneNumber = "254706551542"
-message = "This works!! \n AWESOME \n "
+# phoneNumber = "254706551542"
+# message = "This works!! \n AWESOME \n "
 
-ans = sendWhatsappMessage(message, phoneNumber)
+# ans = sendWhatsappMessage(message, phoneNumber)
