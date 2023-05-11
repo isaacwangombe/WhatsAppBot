@@ -12,7 +12,8 @@ from .functions import *
 def welcome(request):
    
     test = settings.TEST
-    return render(request, 'business/index.html',{'test':test})
+    token =settings.WHATSAPP_TOKEN
+    return render(request, 'business/index.html',{'test':test,'token':token})
 
 
 
