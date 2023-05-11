@@ -9,16 +9,20 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+from dotenv import load_dotenv
 import os
 from pathlib import Path
 import django_heroku
 from decouple import config,Csv
 import dj_database_url
 
+load_dotenv()
+
+
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-WHATSAPP_TOKEN = os.environ['WHATSAPP_TOKEN']
+# WHATSAPP_TOKEN = os.environ['WHATSAPP_TOKEN']
+
 
 DEBUG = True
 # development
@@ -89,6 +93,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'whatsappbot.urls'
+
+TEST = os.environ.get('TEST')
 
 TEMPLATES = [
     {
