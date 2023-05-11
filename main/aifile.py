@@ -19,9 +19,9 @@ def companyDescription(business_name, business_type,country,product_service,shor
 
     if 'choices' in response:
         if len(response['choices'])>0:
-            answer = response['choices'][0]['text']
-            # answer = response['choices'][0]['text'].replace('\n',"<br>")
-            return answer
+            # answer = response['choices'][0]['text']
+            answer = response['choices'][0]['text'].replace('\n',"<br>")
+            return business_name + answer
         else:
             return ""
     else:
