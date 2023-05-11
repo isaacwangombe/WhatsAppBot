@@ -2,6 +2,8 @@ import json
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
+from django.conf import settings
+
 
 from .functions import *
 # Create your views here.
@@ -9,8 +11,8 @@ from .functions import *
 
 def welcome(request):
    
-
-    return render(request, 'business/index.html',{})
+    test = settings.TEST
+    return render(request, 'business/index.html',{'test':test})
 
 
 
