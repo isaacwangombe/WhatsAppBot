@@ -22,6 +22,8 @@ load_dotenv()
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
+TEST = os.environ.get('TEST')
+
 
 
 DEBUG = True
@@ -94,7 +96,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'whatsappbot.urls'
 
-TEST = os.environ.get('TEST')
 
 TEMPLATES = [
     {
