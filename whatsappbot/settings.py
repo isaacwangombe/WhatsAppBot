@@ -18,7 +18,7 @@ import dj_database_url
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-WHATSAPP_TOKEN = config('WHATSAPP_TOKEN')
+WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
 
 DEBUG = True
 # development
