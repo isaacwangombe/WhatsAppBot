@@ -59,7 +59,7 @@ class ChatSession(models.Model):
     ]
 
     business_name = models.TextField(null=True, blank=True),
-    business_type = models.Charfield(
+    business_type = models.CharField(
         choices=OPTIONS, max_length=100, null=True, blank=True),
     country = models.TextField(null=True, blank=True),
     product_service = models.TextField(null=True, blank=True),

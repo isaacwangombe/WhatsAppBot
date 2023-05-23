@@ -142,12 +142,3 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # Send next message
         message = "Great, Thank you. \n Please select the type of business. Enter the number corresponding to the Business Type \n 1. Private\n 2. Partnership \n3. Non-Profit \n \n Enter just the number "
         sendWhatsappMessage(fromId, message)
-
-        business_name = models.TextField(null=True, blank=True),
-        business_type = models.Charfield(
-            choices=OPTIONS, max_length=100, null=True, blank=True),
-        country = models.TextField(null=True, blank=True),
-        product_service = models.TextField(null=True, blank=True),
-        short_description = models.TextField(null=True, blank=True),
-        years = models.TextField(null=True, blank=True),
-        progress = models.TextField(null=True, blank=True),
