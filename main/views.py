@@ -46,10 +46,13 @@ def whatsappWebhook(request):
             timestamp = entry['changes'][0]['value']['messages'][0]['timestamp']
             text = entry['changes'][0]['value']['messages'][0]['text']['body']
 
-            phoneNumber = '254706551542'
-            message = 'RE: {} test was received'.format(text)
-            sendWhatsappMessage(message, phoneNumber)
+            # phoneNumber = '254706551542'
+            # message = 'RE: {} test was received'.format(text)
+            # sendWhatsappMessage(message, phoneNumber)
+
+            handleWhatsappChat(fromId, profileName, phoneId,text)
         except:
           pass
 
     return HttpResponse( 'success', status=200)
+

@@ -25,13 +25,13 @@ WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
 WHATSAPP_URL = os.environ.get('WHATSAPP_URL')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
-# WHATSAPP_TOKEN = 'Bearer EAASJmr0MOuwBACrkwkygfeT6FvaaRF7HBEqgMfuJZCVdbsTTyw5MZBnHgFhtxwUvbf2yASyIQZAUY32z9RY4ZA5gVLGGmGX5sKloBtAMJKOUfJcGOQ2SLqJG1TREbxo4ehFjR7KS9Oskr6x5b6khYPAy16m5pcjwKxqNl87IXwvnDMZCWAG59NtnVoUTPNy4PnOVGxbEtOgZDZD'
-# WHATSAPP_URL = 'https://graph.facebook.com/v16.0/108118905582584/messages'
-# OPENAI_API_KEY =  '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'
 
 
 
 DEBUG = True
+
+
+
 # development
 # if config('MODE')=="dev":
 #    DATABASES = {
@@ -58,10 +58,12 @@ DEBUG = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chatbot',
-        'USER': 'mariga',
-    'PASSWORD':'password',
+        'ENGINE':os.environ.get('django.db.backends.postgresql_psycopg2'),
+        'NAME':os.environ.get('DB_NAME'),
+        'USER':os.environ.get('DB_USER'),
+        'PASSWORD':os.environ.get('password'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': '',
     }
 }
 
