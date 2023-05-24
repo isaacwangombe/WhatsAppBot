@@ -5,11 +5,11 @@ from .models import *
 import requests
 
 
-def sendWhatsappMessage(message, phoneNumber):
+def sendWhatsappMessage(fromId, message):
     headers = {"Authorization": settings.WHATSAPP_TOKEN}
     payload = {"messaging_product": "whatsapp",
                "recipient_type": "individual",
-               "to": phoneNumber,
+               "to": fromId,
                "type": "text",
                        "text": {"body": message}}
     response = requests.post(settings.WHATSAPP_URL,
@@ -52,7 +52,6 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # create a chat session
         chat = ChatSession.objects.create(profile=user_profiles)
 
-        phoneNumber = fromId
         message = 'Welcome to the AI Business Plan creator 😀\n Im going to take you throught the process of creating your business plan right here on whatsapp\n To get started enter your business name'
         sendWhatsappMessage(fromId, message)
 
