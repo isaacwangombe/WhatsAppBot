@@ -35,7 +35,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
         else:
             # create a user
-            user = User.objects.create(
+            user = User.objects.create_user(
                 username=phoneId,
                 email='test@test.com',
                 password='password',
