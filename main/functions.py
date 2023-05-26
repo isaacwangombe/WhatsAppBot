@@ -53,7 +53,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         chat = ChatSession.objects.create(profile=user_profiles)
 
         # message = 'Welcome to the AI Business Plan creator 😀\n Im gomessage = 'RE: {} test was received'.format(text)ing to take you throught the process of creating your business plan right here on whatsapp\n To get started enter your business name'
-        message = 'RE: {} test was received'.format(text)
+        message = 'Welcome to the AI Business Plan creator 😀\n Im going to take you throught the process of creating your business plan right here on whatsapp\n To get started enter your business name'
         sendWhatsappMessage(fromId, message)
 
 # continue with function
