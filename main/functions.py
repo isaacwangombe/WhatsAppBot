@@ -25,32 +25,32 @@ def sendWhatsappMessage(fromId, message):
 
 def handleWhatsappChat(fromId, profileName, phoneId, text):
     # CHeck if there is a chat session
-    # try:
-    #     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
-    # except:
-    #     # Check that user does not already exist
-    #     if User.objects.filter(username=phoneId).exists():
-    #         user = User.objects.get(username=phoneId)
-    #         user_profiles = user.profile
+    try:
+        chat = ChatSession.objects.get(profile__phoneNumber=fromId)
+    except:
+        # Check that user does not already exist
+        if User.objects.filter(username=phoneId).exists():
+            user = User.objects.get(username=phoneId)
+            user_profiles = user.profile
 
-    #     else:
-    #         # create a user
-    #         user = User.objects.create_user(
-    #             username=phoneId,
-    #             email='test@test.com',
-    #             password='password',
-    #             first_name=profileName,
-    #         )
+        else:
+            # create a user
+            user = User.objects.create_user(
+                username=phoneId,
+                email='test@test.com',
+                password='password',
+                first_name=profileName,
+            )
 
-    #         # create a profile
-    #         user_profiles = Profile.objects.create(
-    #             user=user,
-    #             phoneNumber=fromId,
-    #             phoneId=phoneId
-    #         )
+            # create a profile
+            user_profiles = Profile.objects.create(
+                user=user,
+                phoneNumber=fromId,
+                phoneId=phoneId
+            )
 
-    #     # create a chat session
-    #     chat = ChatSession.objects.create(profile=user_profiles)
+        # create a chat session
+        chat = ChatSession.objects.create(profile=user_profiles)
 
     # message = 'Welcome to the AI Business Plan creator 😀\n Im gomessage = 'RE: {} test was received'.format(text)ing to take you throught the process of creating your business plan right here on whatsapp\n To get started enter your business name'
     message = 'RE: {} test was received'.format(text)
