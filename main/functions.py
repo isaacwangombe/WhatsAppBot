@@ -63,9 +63,9 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
     else:
         chat.business_name = text
-        chat.save
+        chat.save()
         # Ask for business type
-        message = text
+        message = "Great, Thank you. \n Please select the type of business. Enter the number corresponding to the Business Type \n 1. Private\n 2. Partnership \n3. Non-Profit \n \n Enter just the number "
         sendWhatsappMessage(fromId, message)
 
 
