@@ -52,7 +52,20 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         message = 'Welcome to the AI Business Plan creator 😀\n Im going to take you throught the process of creating your business plan right here on whatsapp\n To get started enter your business name'
         sendWhatsappMessage(fromId, message)
     else:
-        message = 'Welcome Back'
+        message = 'Welcome Back to the AI Business Plan creator 😀\n To get started enter your business name'
+        sendWhatsappMessage(fromId, message)
+
+# continue with function
+    # Check if the business name exists
+    if chat.business_name:
+        message = "Already entered business name"
+        sendWhatsappMessage(fromId, message)
+
+    else:
+        chat.business_name = text
+        chat.save
+        # Ask for business type
+        message = "Great, Thank you. \n Please select the type of business. Enter the number corresponding to the Business Type \n 1. Private\n 2. Partnership \n3. Non-Profit \n \n Enter just the number "
         sendWhatsappMessage(fromId, message)
 
 
