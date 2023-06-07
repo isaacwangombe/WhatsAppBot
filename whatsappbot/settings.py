@@ -13,55 +13,28 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 import django_heroku
-from decouple import config,Csv
+from decouple import config, Csv
 import dj_database_url
 
 load_dotenv()
 
 
-MODE=config("MODE", default="dev")
+MODE = config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 WHATSAPP_TOKEN = os.environ.get('WHATSAPP_TOKEN')
 WHATSAPP_URL = os.environ.get('WHATSAPP_URL')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 
-
-
 DEBUG = True
 
 
-
-# development
-# if config('MODE')=="dev":
-#    DATABASES = {
-#        'default': {
-#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#            'NAME': config('DB_NAME'),
-#            'USER': config('DB_USER'),
-#            'PASSWORD': config('DB_PASSWORD'),
-#            'HOST': config('DB_HOST'),
-#            'PORT': '',
-#        }
-       
-#    }
-# # production
-# else:
-#    DATABASES = {
-#        'default': dj_database_url.config(
-#            default=config('DATABASE_URL')
-#        )
-#    }
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
-
 DATABASES = {
     'default': {
-        'ENGINE':os.environ.get('django.db.backends.postgresql_psycopg2'),
-        'NAME':os.environ.get('DB_NAME'),
-        'USER':os.environ.get('DB_USER'),
-        'PASSWORD':os.environ.get('password'),
+        'ENGINE': os.environ.get('django.db.backends.postgresql_psycopg2'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('password'),
         'HOST': os.environ.get('DB_HOST'),
         'PORT': '',
     }
@@ -69,7 +42,6 @@ DATABASES = {
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 
 ALLOWED_HOSTS = ["*"]
@@ -126,17 +98,7 @@ WSGI_APPLICATION = 'whatsappbot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chatbot',
-        'USER': 'mariga',
-    'PASSWORD':'password',
-    }
-}
 
- 
- 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
