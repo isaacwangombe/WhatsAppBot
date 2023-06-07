@@ -58,16 +58,17 @@ class ChatSession(models.Model):
         ('Non-Profit', 'Non-Profit'),
     ]
 
-    business_name = models.TextField(null=True, blank=True),
+    business_name = models.TextField(null=True, blank=True)
     business_type = models.CharField(
-        choices=OPTIONS, max_length=100, null=True, blank=True),
-    country = models.TextField(null=True, blank=True),
-    product_service = models.TextField(null=True, blank=True),
-    short_description = models.TextField(null=True, blank=True),
-    years = models.TextField(null=True, blank=True),
-    progress = models.TextField(null=True, blank=True),
+        choices=OPTIONS, max_length=100, null=True, blank=True)
+    country = models.TextField(null=True, blank=True)
+    product_service = models.TextField(null=True, blank=True)
+    short_description = models.TextField(null=True, blank=True)
+    years = models.TextField(null=True, blank=True)
+    progress = models.TextField(null=True, blank=True)
 
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, null=True, blank=True)
 
     # Utility Variable
     uniqueId = models.CharField(
