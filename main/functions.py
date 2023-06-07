@@ -21,7 +21,7 @@ def sendWhatsappMessage(fromId, message):
 phoneNumber = "254706551542"
 message = "This works!! \n AWESOME \n "
 
-ans = sendWhatsappMessage(message, phoneNumber)
+sendWhatsappMessage(message, phoneNumber)
 
 # def handleWhatsappChat(fromId, profileName, phoneId, text):
 #     # CHeck if there is a chat session
