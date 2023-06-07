@@ -23,6 +23,14 @@ def sendWhatsappMessage(fromId, message):
 
 # ans = sendWhatsappMessage(message, phoneNumber)
 
+
+# def handleWhatsappChat(fromId, profileName, phoneId, text):
+#     try:
+#         chat= ChatSession.objects.get(profile__phoneNumber=fromId)
+#     except:
+#         if User
+
+
 def handleWhatsappChat(fromId, profileName, phoneId, text):
     # CHeck if there is a chat session
     try:
