@@ -3,59 +3,30 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
+from django.views.generic import View
 
 
 from .functions import *
 # Create your views here.
-
-import pdfkit
-from django.template.loader import get_template
-import os
-
-
-def createPDF(request):
-  # The name of your PDF file
-    filename = 'filename.pdf'
-    # HTML FIle to be converted to PDF - inside your Django directory
-    template = get_template('business/business.html')
-    # Add any context variables you need to be dynamically rendered in the HTML
-    context = {}
-    context['name'] = 'Mariga'
-    context['surname'] = 'TheBomb'
-
-  # Render the HTML
-    html = template.render(context)
-
-  # Options - Very Important [Don't forget this]
-    options = {
-        'encoding': 'UTF-8',
-        'enable-local-file-access': None,  # To be able to access CSS
-        'page-size': 'A4',
-        'custom-header': [
-            ('Accept-Encoding', 'gzip')
-        ],
-    }
-    # Javascript delay is optional
-
-    # Remember that location to wkhtmltopdf
-    config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
-
-    # Create the file
-    file_content = pdfkit.from_string(
-        html, False, configuration=config, options=options)
-
-    # Create the HTTP Response
-    response = HttpResponse(file_content, content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename = {}'.format(filename)
-
-    # Return
-    return response
+from whatsappbot.utils import render_to_pdf
 
 
 def welcome(request):
 
     token = settings.WHATSAPP_TOKEN
     return render(request, 'business/index.html', {'token': token})
+
+
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        data = {
+            'today': 4/3/1995,
+            'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        }
+        pdf = render_to_pdf('business/business.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 
 @csrf_exempt
