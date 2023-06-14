@@ -11,7 +11,7 @@ def sendWhatsappMessage(fromId, message):
                "recipient_type": "individual",
                "to": fromId,
                "type": "text",
-               "text": {"body": message}}
+                       "text": {"body": message}}
     response = requests.post(settings.WHATSAPP_URL,
                              headers=headers, json=payload)
     ans = response.json()
@@ -163,6 +163,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                     sendWhatsappMessage(fromId, message)
                 elif type == 3:
                     chat.business_type = 'Non-Profit'
+                    chat.save()
+
                     message = "Which country are you from?"
                     sendWhatsappMessage(fromId, message)
                 else:
@@ -174,7 +176,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # Test for the number
     else:
         chat.business_name = text
-        chat.save
+        chat.save()
         # Send next message
         message = "Great, Thank you. \n Please select the type of business. Enter the number corresponding to the Business Type \n 1. Private\n 2. Partnership \n3. Non-Profit \n \n Enter just the number "
         sendWhatsappMessage(fromId, message)
