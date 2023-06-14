@@ -1,11 +1,9 @@
 import os
 import openai
 from django.conf import settings
-from dotenv import load_dotenv
-load_dotenv()
 
-# openai.api_key = settings.OPENAI_API_KEY
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+openai.api_key = settings.OPENAI_API_KEY
 
 
 def companyDescription(business_name, business_type, country, product_service, short_description, years_operation, progress):
