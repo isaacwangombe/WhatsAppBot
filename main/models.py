@@ -51,8 +51,8 @@ class BusinessPlan(models.Model):
         super(BusinessPlan, self).save(*args, **kwargs)
 
     @classmethod
-    def get_all(cls, fromId):
-        table = BusinessPlan.objects.get(profile__phoneId=fromId).first()
+    def get_all(cls, user):
+        table = BusinessPlan.objects.get(profile__phoneNumber=user)
         return table
 
 
