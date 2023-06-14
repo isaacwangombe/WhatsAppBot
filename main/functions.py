@@ -117,12 +117,12 @@ def createNewBusinessPlan(chat, fromId):
     businessPlan = buildBusinessPlan(chat)
 
     # Create the pdf document
-    doc_url = 'https://whatsappbot.herokuapp.com/pdf/'+fromId
+    # doc_url = 'https://whatsappbot.herokuapp.com/pdf/'+fromId
 
     # Send the document Link
     # /usr/local/bin/wkhtmltopdf
-    message = 'Here:\n \n {}'.format(doc_url)
-    sendWhatsappMessage(fromId, message)
+    # message = 'Here:\n \n {}'.format(doc_url)
+    # sendWhatsappMessage(fromId, message)
     # delete the chat ata the end
     chat.delete()
 
