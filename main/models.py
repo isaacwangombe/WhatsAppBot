@@ -5,7 +5,7 @@ from django.utils import timezone
 from uuid import uuid4
 from django.conf import settings
 import os
-
+from .views import *
 # Create your models here.
 
 
@@ -51,8 +51,8 @@ class BusinessPlan(models.Model):
         super(BusinessPlan, self).save(*args, **kwargs)
 
     @classmethod
-    def get_all(cls, user):
-        table = BusinessPlan.objects.get(profile__phoneNumber=user)
+    def get_all(cls, fromId):
+        table = BusinessPlan.objects.get(profile__phoneNumber=fromId)
         return table
 
 

@@ -1,13 +1,12 @@
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from .models import *
 import requests
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 import io
 from .aifile import *
-from .views import *
+from .models import BusinessPlan, ChatSession, Profile
 
 
 def sendWhatsappMessage(fromId, message):
@@ -16,7 +15,7 @@ def sendWhatsappMessage(fromId, message):
                "recipient_type": "individual",
                "to": fromId,
                "type": "text",
-                       "text": {"body": message}}
+               "text": {"body": message}}
     response = requests.post(settings.WHATSAPP_URL,
                              headers=headers, json=payload)
     ans = response.json()
@@ -118,7 +117,7 @@ def createNewBusinessPlan(chat, fromId):
     businessPlan = buildBusinessPlan(chat)
 
     # Create the pdf document
-    doc_url = createPDF(chat, businessPlan)
+    doc_url = 'https://whatsappbot.herokuapp.com/'+fromId
 
     # Send the document Link
     # /usr/local/bin/wkhtmltopdf
