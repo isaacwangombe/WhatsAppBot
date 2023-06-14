@@ -6,7 +6,7 @@ import requests
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 import io
-from aifile import *
+from .aifile import *
 
 
 def sendWhatsappMessage(fromId, message):
