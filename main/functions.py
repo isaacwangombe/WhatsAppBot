@@ -6,6 +6,7 @@ import requests
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 import io
+from aifile import *
 
 
 def sendWhatsappMessage(fromId, message):
@@ -73,24 +74,53 @@ def sendWhatsappMessage(fromId, message):
     # 	sendWhatsappMessage(fromId, message)
     # 	return ""
 
-# def generatePDF(xxxxxx):
-#     buffer = io.BytesIO()
-#     x = canvas.Canvas(buffer)
-#     x.drawString(100, 100, "Let's generate this pdf file.")
-#     x.showPage()
-#     x.save()
-#     buffer.seek(0)
-#     return FileResponse(buffer, as_attachment=True, filename='attempt1.pdf')
+def createPDF(chat, businessPlan):
+
+    # Variables
+    profile = chat.profile
+    filename = businessPlan.uniqueId+'.pdf'
+
+    buffer = io.BytesIO()
+    x = canvas.Canvas(buffer)
+    x.drawString(100, 100, "Let's generate this pdf file.")
+    x.showPage()
+    x.save()
+    buffer.seek(0)
+
+    # Saving the File
+    filepath = settings.MEDIA_ROOT + \
+        '/business_plans/{}/'.format(profile.uniqueId)
+    os.makedirs(filepath, exist_ok=True)
+    pdf_save_path = filepath+filename
+    # Save the PDF
+    return 'https://whatsappbot.herokuapp.com/media/' + \
+        'business_plans/{}/{}'.format(profile.uniqueId, filename)
 
 
-def createNewBusinessPlan(chat):
+def buildBusinessPlan(chat):
+    company_description = companyDescription(chat.business_name, chat.business_type, chat.country,
+                                             chat.product_service, chat.short_description, chat.years_operation, chat.progress)
+
+    businessPlan = BusinessPlan.objects.create(
+        profile=chat.profile,
+        company_description=company_description
+    )
+    businessPlan.save()
+
+    return businessPlan
+
+
+def createNewBusinessPlan(chat, fromId):
     # Build the business plan
+    businessPlan = buildBusinessPlan(chat)
 
     # Create the pdf document
+    doc_url = createPDF(chat, businessPlan)
 
     # Send the document Link
     # /usr/local/bin/wkhtmltopdf
-
+    message = 'Here:\n \n {}'.format(doc_url)
+    sendWhatsappMessage(fromId, message)
     # delete the chat ata the end
     chat.delete()
 
@@ -145,7 +175,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                                 chat.save()
                                 message = "Great! We have everything we need to build your business plan"
                                 sendWhatsappMessage(fromId, message)
-                                createNewBusinessPlan(chat)
+                                createNewBusinessPlan(chat, fromId)
                         else:
                             try:
                                 years = int(text.replace(" ", ""))
