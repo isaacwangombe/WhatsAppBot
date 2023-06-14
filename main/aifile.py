@@ -1,8 +1,8 @@
 import os
 import openai
 from django.conf import settings
-# openai.api_key = settings.OPENAI_API_KEY
-openai.api_key = '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'
+openai.api_key = settings.OPENAI_API_KEY
+# openai.api_key = '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'
 
 
 def companyDescription(business_name, business_type, country, product_service, short_description, years_operation, progress):
