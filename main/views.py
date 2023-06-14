@@ -18,7 +18,7 @@ def welcome(request):
     return render(request, 'business/index.html', {'token': token})
 
 
-def GeneratePdf():
+def GeneratePdf(request):
     # data = BusinessPlan.get_all().first()
     data = "names"
     pdf = render_to_pdf('business/business.html', data)
