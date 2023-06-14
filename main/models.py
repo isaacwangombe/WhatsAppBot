@@ -50,6 +50,11 @@ class BusinessPlan(models.Model):
         self.last_updated = timezone.localtime(timezone.now())
         super(BusinessPlan, self).save(*args, **kwargs)
 
+    @classmethod
+    def get_all(cls):
+        table = BusinessPlan.objects.all()
+        return table
+
 
 class ChatSession(models.Model):
     OPTIONS = [

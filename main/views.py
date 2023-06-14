@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from django.views.generic import View
+from .models import *
 
 
 from .functions import *
@@ -17,13 +18,9 @@ def welcome(request):
     return render(request, 'business/index.html', {'token': token})
 
 
-def GeneratePdf(request):
-    data = {
-        'today': 4/3/1995,
-        'amount': 39.99,
-        'customer_name': 'Cooper Mann',
-        'order_id': 1233434,
-    }
+def GeneratePdf():
+    # data = BusinessPlan.get_all().first()
+    data = "names"
     pdf = render_to_pdf('business/business.html', data)
     return HttpResponse(pdf, content_type='application/pdf')
 
