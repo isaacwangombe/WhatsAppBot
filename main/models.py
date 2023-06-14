@@ -5,7 +5,6 @@ from django.utils import timezone
 from uuid import uuid4
 from django.conf import settings
 import os
-from .views import *
 # Create your models here.
 
 
