@@ -11,7 +11,7 @@ def sendWhatsappMessage(fromId, message):
                "recipient_type": "individual",
                "to": fromId,
                "type": "text",
-               "text": {"body": message}}
+                       "text": {"body": message}}
     response = requests.post(settings.WHATSAPP_URL,
                              headers=headers, json=payload)
     ans = response.json()
@@ -119,14 +119,14 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
                             else:
                                 chat.progress = text
-                            chat.save()
+                                chat.save()
 
-                            message = "Great! We have everything we need to build your business plan"
-                            sendWhatsappMessage(fromId, message)
+                                message = "Great! We have everything we need to build your business plan"
+                                sendWhatsappMessage(fromId, message)
 
                         else:
                             try:
-                                years = int(text.replace(' ', ''))
+                                years = int(text.replace(" ", ""))
                                 chat.years = years
                                 chat.save()
 
@@ -137,7 +137,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                                 sendWhatsappMessage(fromId, message)
 
                     else:
-                        chat.product_service = text
+                        chat.short_description = text
                         chat.save()
                         message = "How many years have you been in business for? Enter a number like 1 or 2"
                         sendWhatsappMessage(fromId, message)
