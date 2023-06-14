@@ -17,16 +17,15 @@ def welcome(request):
     return render(request, 'business/index.html', {'token': token})
 
 
-class GeneratePdf(View):
-    def get(self, request, *args, **kwargs):
-        data = {
-            'today': 4/3/1995,
-            'amount': 39.99,
-            'customer_name': 'Cooper Mann',
-            'order_id': 1233434,
-        }
-        pdf = render_to_pdf('business/business.html', data)
-        return HttpResponse(pdf, content_type='application/pdf')
+def GeneratePdf(request):
+    data = {
+        'today': 4/3/1995,
+        'amount': 39.99,
+        'customer_name': 'Cooper Mann',
+        'order_id': 1233434,
+    }
+    pdf = render_to_pdf('business/business.html', data)
+    return HttpResponse(pdf, content_type='application/pdf')
 
 
 @csrf_exempt
