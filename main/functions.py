@@ -98,11 +98,10 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             )
 
         # create a chat session
-        chat = ChatSession.objects.create(profile=user_profiles)
+    chat = ChatSession.objects.create(profile=user_profiles)
 
     message = 'Welcome to the AI Business Plan creator 😀\n Im going to take you throught the process of creating your business plan right here on whatsapp\n To get started enter your business name'
     sendWhatsappMessage(fromId, message)
-    return ""
 
 
 # continue with function
