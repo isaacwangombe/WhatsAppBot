@@ -117,7 +117,7 @@ def createNewBusinessPlan(chat, fromId):
     businessPlan = buildBusinessPlan(chat)
 
     # Create the pdf document
-    doc_url = 'https://whatsappbot.herokuapp.com/'+fromId
+    doc_url = 'https://whatsappbot.herokuapp.com/pdf/'+fromId
 
     # Send the document Link
     # /usr/local/bin/wkhtmltopdf
