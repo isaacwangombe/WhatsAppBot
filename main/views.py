@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+import io
 
 
 from .functions import *
@@ -13,6 +16,16 @@ def welcome(request):
 
     token = settings.WHATSAPP_TOKEN
     return render(request, 'business/index.html', {'token': token})
+
+
+def generatePDF(request):
+    buffer = io.BytesIO()
+    x = canvas.Canvas(buffer)
+    x.drawString(100, 100, "Let's generate this pdf file.")
+    x.showPage()
+    x.save()
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='attempt1.pdf')
 
 
 @csrf_exempt
