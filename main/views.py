@@ -20,7 +20,8 @@ def welcome(request):
 
 def GeneratePdf(request):
     # data = BusinessPlan.get_all().first()
-    data = "names"
+    data = {'names': 44433,
+            'name': 44433}
     pdf = render_to_pdf('business/business.html', data)
     return HttpResponse(pdf, content_type='application/pdf')
 
