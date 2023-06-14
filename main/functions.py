@@ -3,6 +3,9 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from .models import *
 import requests
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+import io
 
 
 def sendWhatsappMessage(fromId, message):
@@ -70,6 +73,27 @@ def sendWhatsappMessage(fromId, message):
     # 	sendWhatsappMessage(fromId, message)
     # 	return ""
 
+# def generatePDF(xxxxxx):
+#     buffer = io.BytesIO()
+#     x = canvas.Canvas(buffer)
+#     x.drawString(100, 100, "Let's generate this pdf file.")
+#     x.showPage()
+#     x.save()
+#     buffer.seek(0)
+#     return FileResponse(buffer, as_attachment=True, filename='attempt1.pdf')
+
+
+def createNewBusinessPlan(chat):
+    # Build the business plan
+
+    # Create the pdf document
+
+    # Send the document Link
+    # /usr/local/bin/wkhtmltopdf
+
+    # delete the chat ata the end
+    chat.delete()
+
 
 def handleWhatsappChat(fromId, profileName, phoneId, text):
     # CHeck if there is a chat session
@@ -121,6 +145,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                                 chat.save()
                                 message = "Great! We have everything we need to build your business plan"
                                 sendWhatsappMessage(fromId, message)
+                                createNewBusinessPlan(chat)
                         else:
                             try:
                                 years = int(text.replace(" ", ""))
