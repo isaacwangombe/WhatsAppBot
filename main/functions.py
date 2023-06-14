@@ -98,12 +98,14 @@ def createPDF(chat, businessPlan):
 
 
 def buildBusinessPlan(chat):
+    company_description = companyDescription("test", 1, "Kenya",
+                                             "Shoes", "shoe company", 1, "5 sales")
     # company_description = companyDescription(chat.business_name, chat.business_type, chat.country,
     #                                          chat.product_service, chat.short_description, chat.years_operation, chat.progress)
 
     businessPlan = BusinessPlan.objects.create(
         profile=chat.profile,
-        company_description="company_description"
+        company_description=company_description
     )
     businessPlan.save()
 
