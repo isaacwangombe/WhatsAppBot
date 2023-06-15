@@ -51,7 +51,7 @@ class BusinessPlan(models.Model):
 
     @classmethod
     def get_all(cls, fromId):
-        table = BusinessPlan.objects.get(profile__phoneNumber=fromId)
+        table = BusinessPlan.objects.filter(profile__phoneNumber=fromId)
         return table
 
 
