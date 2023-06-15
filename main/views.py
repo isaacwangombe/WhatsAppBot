@@ -20,7 +20,7 @@ def welcome(request):
 
 def GeneratePdf(request, user):
     if len(BusinessPlan.get_all(user)) > 1:
-        data = {'data': BusinessPlan.get_all(user).reverse()[0]}
+        data = {'data': BusinessPlan.get_all(user).last()}
     else:
         data = {'data': BusinessPlan.get_all(user)}
 
