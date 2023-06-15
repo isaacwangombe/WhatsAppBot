@@ -20,10 +20,11 @@ def welcome(request):
 
 def GeneratePdf(request, user):
     # data = BusinessPlan.get_all().first()
-    if BusinessPlan.get_all(user) > 1:
-        data = {'data': BusinessPlan.get_all(user)}
-    else:
-        data = {'data': BusinessPlan.get_all(user).first()}
+    # if BusinessPlan.get_all(user) > 1:
+    #     data = {'data': BusinessPlan.get_all(user)}
+    # else:
+    #     data = {'data': BusinessPlan.get_all(user).first()}
+    data = {'data': len(BusinessPlan.get_all(user))}
 
     pdf = render_to_pdf('business/business.html', data)
     return HttpResponse(pdf, content_type='application/pdf')
