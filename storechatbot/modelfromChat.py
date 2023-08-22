@@ -186,7 +186,6 @@ class RepairRequest(models.Model):
 
     StatusOptions = [
         ('Pending', 'Pending'),
-        ('Ongoing', 'Ongoing'),
         ('Closed', 'Closed'),
     ]
     renter = models.ForeignKey(Renter, on_delete=models.CASCADE)
@@ -214,6 +213,23 @@ class RepairRequest(models.Model):
 
     def __str__(self):
         return f"Repair Request for {self.apartment}"
+
+
+class Transaction(models.Model):
+    transaction_code = models.CharField(max_length=10)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField()
+    recipient_name = models.CharField(max_length=100)
+    recipient_account = models.CharField(max_length=20)
+
+    def save(self, *args, **kwargs):
+        if self.date_created is None:
+            self.date_created = timezone.localtime(timezone.now())
+        if self.uniqueId is None:
+            self.uniqueId = str(uuid4()).split('-')[4]
+
+        self.last_updated = timezone.localtime(timezone.now())
+        super(ChatSession, self).save(*args, **kwargs)
 
 
 class RenterPayment(models.Model):
@@ -249,17 +265,11 @@ class ChatSession(models.Model):
     OPTIONS = [
         ('payment', 'payment'),
         ('receipt', 'receipt'),
-        ('registration', 'registration'),
         ('complaint', 'complaint'),
     ]
 
     chat_purpose = models.CharField(
         choices=OPTIONS, max_length=100, null=True, blank=True)
-    country = models.TextField(null=True, blank=True)
-    product_service = models.TextField(null=True, blank=True)
-    short_description = models.TextField(null=True, blank=True)
-    years = models.TextField(null=True, blank=True)
-    progress = models.TextField(null=True, blank=True)
 
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, null=True, blank=True)

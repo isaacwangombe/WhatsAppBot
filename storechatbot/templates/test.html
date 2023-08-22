@@ -8,13 +8,14 @@
 </head>
 
 <body>
+  {{question}}
+
   <form method="post">
     {% csrf_token %}
-    {{ form }}
+    <input type="text" name="message" placeholder="Message">
     <input type="submit" value="Submit">
   </form>
 
-  {{answer}}
 </body>
 
 </html>

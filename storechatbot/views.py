@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .forms import MessageForm
-from .aifile import SalesAI
 from .models import *
 import json
 
@@ -11,23 +10,44 @@ from django.shortcuts import render
 # Create your views here.
 
 
-def welcome(request):
-    message = ""
-    answer = ""
-    sales = Sales()
+def two(request):
+    message = Message()
+    question = "Question 2"
     if request.method == "POST":
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            message = form.cleaned_data["message"]
-            answers = SalesAI(message)
-            answer = json.loads(answers)
-            sales.amount = answer["amount"]
-            sales.phoneNumber = answer["phoneNumber"]
-            sales.transactionCode = answer["transactionCode"]
-            sales.date = answer["date"]
-            sales.save()
+        message.three = request.POST["message"]
+        message.save()
+        return render(request, 'test.html', {"message": message, "question": question})
+    else:
+        return render(request, 'test.html', {"message": message, "question": question})
+
+
+def one(request):
+    if Message.one:
+        two(request)
 
     else:
-        form = MessageForm()
+        question = "Question 1"
+        if request.method == "POST":
+            message = Message()
+            message.two = request.POST["message"]
+            message.save()
+            return render(request, 'test.html', {"message": message, "question": question})
+        else:
+            return render(request, 'test.html', {"message": message, "question": question})
 
-    return render(request, 'test.html', {"form": form, "message": message, "answer": answer})
+
+def welcome(request):
+    if Message.objects.exists():
+        # question = "test"
+        one(request)
+
+    else:
+        question = "Question"
+        if request.method == "POST":
+            message = Message()
+            message.one = request.POST["message"]
+            message.save()
+            return render(request, 'test.html', {"message": message, "question": question})
+        else:
+            return render(request, 'test.html', {"message": message, "question": question})
+    # return render(request, 'test.html', {"message": message, "question": question})
