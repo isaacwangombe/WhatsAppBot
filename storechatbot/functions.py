@@ -24,11 +24,6 @@ def sendWhatsappMessage(fromId, message):
     return ans
 
 
-# phoneNumber = "254706551542"
-# message = "This works!! \n AWESOME \n "
-
-# ans = sendWhatsappMessage(message, phoneNumber)
-
 def parse_transaction_message(message):
     transaction_code = re.search(
         r'(?:Ref\. Number|Transaction ID): ([A-Z0-9]+)', message).group(1)
