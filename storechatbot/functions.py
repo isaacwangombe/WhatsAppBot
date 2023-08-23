@@ -8,7 +8,7 @@ from reportlab.pdfgen import canvas
 import io
 import re
 from .aifile import *
-from .models import ChatSession, Profile, Transaction
+from .models import ChatSession, Transaction
 
 
 def sendWhatsappMessage(fromId, message):
@@ -45,59 +45,6 @@ def parse_transaction_message(message):
 
     transaction.save()
     return transaction
-
-
-def createPDF(chat, businessPlan):
-
-    # Variables
-    profile = chat.profile
-    filename = businessPlan.uniqueId+'.pdf'
-
-    buffer = io.BytesIO()
-    x = canvas.Canvas(buffer)
-    x.drawString(100, 100, "Let's generate this pdf file.")
-    x.showPage()
-    x.save()
-    buffer.seek(0)
-
-    # Saving the File
-    filepath = settings.MEDIA_ROOT + \
-        '/business_plans/{}/'.format(profile.uniqueId)
-    os.makedirs(filepath, exist_ok=True)
-    pdf_save_path = filepath+filename
-    # Save the PDF
-    return 'https://whatsappbot.herokuapp.com/media/' + \
-        'business_plans/{}/{}'.format(profile.uniqueId, filename)
-
-
-def buildBusinessPlan(chat):
-    # company_description = companyDescription("test", 1, "Kenya",
-    #                                          "Shoes", "shoe company", 1, "5 sales")
-    company_description = companyDescription(chat.business_name, chat.business_type, chat.country,
-                                             chat.product_service, chat.short_description, chat.years, chat.progress)
-
-    businessPlan = BusinessPlan.objects.create(
-        profile=chat.profile,
-        company_description=company_description
-    )
-    businessPlan.save()
-
-    return businessPlan
-
-
-def createNewBusinessPlan(chat, fromId):
-    # Build the business plan
-    businessPlan = buildBusinessPlan(chat)
-
-    # Create the pdf document
-    doc_url = 'https://whatsappbot.herokuapp.com/pdf/'+fromId
-
-    # Send the document Link
-    # /usr/local/bin/wkhtmltopdf
-    message = 'Here:\n \n {}'.format(doc_url)
-    sendWhatsappMessage(fromId, message)
-    # delete the chat ata the end
-    chat.delete()
 
 
 def handleWhatsappChat(fromId, profileName, phoneId, text):
