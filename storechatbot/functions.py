@@ -53,7 +53,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         chat = ChatSession.objects.create(profile=user_profiles)
 
     message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
-    sendWhatsappMessage(fromId, message)
+    sendWhatsappMessage(fromId, message, chat)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
