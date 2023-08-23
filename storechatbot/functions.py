@@ -25,35 +25,35 @@ def sendWhatsappMessage(fromId, message):
 
 
 def handleWhatsappChat(fromId, profileName, phoneId, text):
-    try:
-        chat = ChatSession.objects.get(profile__phoneNumber=fromId)
-    except:
-        # Check that user does not already exist
-        if User.objects.filter(username=phoneId).exists():
-            user = User.objects.get(username=phoneId)
-            user_profiles = user.profiles
+    # try:
+    #     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
+    # except:
+    #     # Check that user does not already exist
+    #     if User.objects.filter(username=phoneId).exists():
+    #         user = User.objects.get(username=phoneId)
+    #         user_profiles = user.profiles
 
-        else:
-            # create a user
-            user = User.objects.create_user(
-                username=phoneId,
-                email='test@test.com',
-                password='password',
-                first_name=profileName,
-            )
+    #     else:
+    #         # create a user
+    #         user = User.objects.create_user(
+    #             username=phoneId,
+    #             email='test@test.com',
+    #             password='password',
+    #             first_name=profileName,
+    #         )
 
-            # create a profile
-            user_profiles = Profiles.objects.create(
-                user=user,
-                phoneNumber=fromId,
-                phoneId=phoneId
-            )
+    #         # create a profile
+    #         user_profiles = Profiles.objects.create(
+    #             user=user,
+    #             phoneNumber=fromId,
+    #             phoneId=phoneId
+    #         )
 
-        # create a chat session
-        chat = ChatSession.objects.create(profile=user_profiles)
+    #     # create a chat session
+    #     chat = ChatSession.objects.create(profile=user_profiles)
 
-        message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
-        sendWhatsappMessage(fromId, message)
+    message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
+    sendWhatsappMessage(fromId, message)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
