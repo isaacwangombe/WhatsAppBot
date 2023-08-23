@@ -22,58 +22,6 @@ def sendWhatsappMessage(fromId, message):
     return ans
 
 
-# phoneNumber = "254706551542"
-# message = "This works!! \n AWESOME \n "
-
-# ans = sendWhatsappMessage(message, phoneNumber)
-
-
-# def handleWhatsappChat(fromId, profileName, phoneId, text):
-# 	try:
-# 		chat = ChatSession.objects.get(profile__phoneNumber=fromId)
-# 	except:
-# 		# Check that user does not already exist
-
-# 		if User.objects.filter(username=phoneId).exists():
-# 			user = User.objects.get(username=phoneId)
-# 			user_profiles = user.profile
-# 		else:
-# 			# Create new user
-# 			user = User.objects.create_user(
-# 				username=phoneId,
-# 				email='test@test.com',
-# 				password='password',
-# 				first_name=profileName
-# 			)
-# 			# Create a profile
-# 			user_profiles = Profile.objects.create(
-# 				user=user,
-# 				phoneNumber=fromId,
-# 				phoneId=phoneId
-# 			)
-# 		# create chat session
-# 		chat = ChatSession.objects.create(profile=user_profiles)
-# 		message = 'Welcome to the AI Business Plan creator 😀\n Im going to take you throught the process of creating your business plan right here on whatsapp\n To get started enter your business name'
-# 		sendWhatsappMessage(fromId, message)
-# 		return ""
-
-
-# continue with function
-    # Check if the business name exists
-    # if chat.business_name:
-    # 	if chat.business_type:
-    # 		message = "Already entered business name"
-    # 	else:
-    # 		message = "Already entered business name"
-
-    # else:
-    # 	chat.business_name = text
-    # 	chat.save()
-    # 	# Ask for business type
-    # 	message = "Great, Thank you. \n Please select the type of business. Enter the number corresponding to the Business Type \n 1. Private\n 2. Partnership \n3. Non-Profit \n \n Enter just the number "
-    # 	sendWhatsappMessage(fromId, message)
-    # 	return ""
-
 def createPDF(chat, businessPlan):
 
     # Variables
