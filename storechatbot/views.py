@@ -15,17 +15,7 @@ from whatsappbot.utils import render_to_pdf
 def welcome(request):
 
     token = settings.WHATSAPP_TOKEN
-    return render(request, 'business/index.html', {'token': token})
-
-
-def GeneratePdf(request, user):
-    if len(BusinessPlan.get_all(user)) > 1:
-        data = {'data': BusinessPlan.get_all(user).last()}
-    else:
-        data = {'data': BusinessPlan.get_all(user)}
-
-    pdf = render_to_pdf('business/business.html', data)
-    return HttpResponse(pdf, content_type='application/pdf')
+    return render(request, 'test.html', {'token': token})
 
 
 @csrf_exempt
