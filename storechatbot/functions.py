@@ -8,7 +8,7 @@ from reportlab.pdfgen import canvas
 import io
 import re
 from .aifile import *
-from .models import ChatSession, Transaction
+from .models import ChatSession, Transaction, Profiles
 
 
 def sendWhatsappMessage(fromId, message):
@@ -66,7 +66,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             )
 
             # create a profile
-            user_profiles = Profile.objects.create(
+            user_profiles = Profiles.objects.create(
                 user=user,
                 phoneNumber=fromId,
                 phoneId=phoneId
