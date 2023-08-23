@@ -1,53 +1,64 @@
-from django.shortcuts import render
-from .forms import MessageForm
-from .models import *
 import json
-
-
-# Create your views here.
-
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponse
+from django.conf import settings
+from django.views.generic import View
+from .models import *
+
+
+from .functions import *
 # Create your views here.
-
-
-def two(request):
-    message = Message()
-    question = "Question 2"
-    if request.method == "POST":
-        message.three = request.POST["message"]
-        message.save()
-        return render(request, 'test.html', {"message": message, "question": question})
-    else:
-        return render(request, 'test.html', {"message": message, "question": question})
-
-
-def one(request):
-    if Message.one:
-        two(request)
-
-    else:
-        question = "Question 1"
-        if request.method == "POST":
-            message = Message()
-            message.two = request.POST["message"]
-            message.save()
-            return render(request, 'test.html', {"message": message, "question": question})
-        else:
-            return render(request, 'test.html', {"message": message, "question": question})
+from whatsappbot.utils import render_to_pdf
 
 
 def welcome(request):
-    if Message.objects.exists():
-        # question = "test"
-        one(request)
 
+    token = settings.WHATSAPP_TOKEN
+    return render(request, 'business/index.html', {'token': token})
+
+
+def GeneratePdf(request, user):
+    if len(BusinessPlan.get_all(user)) > 1:
+        data = {'data': BusinessPlan.get_all(user).last()}
     else:
-        question = "Question"
-        if request.method == "POST":
-            message = Message()
-            message.one = request.POST["message"]
-            message.save()
-            return render(request, 'test.html', {"message": message, "question": question})
+        data = {'data': BusinessPlan.get_all(user)}
+
+    pdf = render_to_pdf('business/business.html', data)
+    return HttpResponse(pdf, content_type='application/pdf')
+
+
+@csrf_exempt
+def whatsappWebhook(request):
+    if request.method == 'GET':
+        VERIFY_TOKEN = 'test'
+        mode = request.GET['hub.mode']
+        token = request.GET['hub.verify_token']
+        challenge = request.GET['hub.challenge']
+
+        if mode == 'subscribe' and token == VERIFY_TOKEN:
+            return HttpResponse(challenge, status=200)
         else:
-            return render(request, 'test.html', {"message": message, "question": question})
-    # return render(request, 'test.html', {"message": message, "question": question})
+            return HttpResponse('error', status=403)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        if 'object' in data and 'entry' in data:
+            if data['object'] == 'whatsapp_business_account':
+                try:
+                    for entry in data['entry']:
+                        phoneId = entry['changes'][0]['value']['metadata']['phone_number_id']
+                        profileName = entry['changes'][0]['value']['contacts'][0]['profile']['name']
+                        whatsAppId = entry['changes'][0]['value']['contacts'][0]['wa_id']
+                        fromId = entry['changes'][0]['value']['messages'][0]['from']
+                        text = entry['changes'][0]['value']['messages'][0]['text']['body']
+
+                        # phoneNumber = '254706551542'
+                        # message = 'RE: {} test was received'.format(text)
+                        # sendWhatsappMessage(fromId, message)
+
+                        handleWhatsappChat(fromId, profileName, phoneId, text)
+                except:
+                    pass
+
+        return HttpResponse('success', status=200)
