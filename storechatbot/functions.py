@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 import requests
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
-import io
 import re
 from .aifile import *
 from .models import ChatSession, Transaction, Profiles
@@ -31,7 +30,7 @@ def Ans1(fromId):
 
 
 def Ans2(fromId, message):
-    message = 'two'
+    message = 'twos'
     sendWhatsappMessage(fromId, message)
 
 
@@ -62,8 +61,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
         # create a chat session
             chat = ChatSession.objects.create(profile=user_profiles)
-            message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
-            sendWhatsappMessage(fromId, message)
+    message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
+    sendWhatsappMessage(fromId, message)
 
     match text:
         case "1":
