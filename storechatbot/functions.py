@@ -31,7 +31,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # Check that user does not already exist
         if User.objects.filter(username=phoneId).exists():
             user = User.objects.get(username=phoneId)
-            user_profiles = user.profile
+            user_profiles = user.profiles
 
         else:
             # create a user
@@ -52,8 +52,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # create a chat session
         ChatSession.objects.create(profile=user_profiles)
 
-    message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
-    sendWhatsappMessage(fromId, message)
+        message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
+        sendWhatsappMessage(fromId, message)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
