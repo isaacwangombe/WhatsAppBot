@@ -27,6 +27,7 @@ def sendWhatsappMessage(fromId, message):
 
 def handleWhatsappChat(fromId, profileName, phoneId, text):
     try:
+        print("Tesdin")
         ChatSession.objects.get(profile__phoneNumber=fromId)
     except ObjectDoesNotExist:
         # Check that user does not already exist
