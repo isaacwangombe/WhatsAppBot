@@ -70,6 +70,9 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             Ans1(fromId)
         case "2":
             Ans2(fromId)
+        case _:
+            message = 'invalid'
+            sendWhatsappMessage(fromId, message)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
