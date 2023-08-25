@@ -9,7 +9,7 @@ import os
 
 class Profiles(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=30, null=True, blank=True)
+    phoneNumber = models.CharField(max_length=30, null=True, blank=True)
     phoneId = models.CharField(max_length=200, null=True, blank=True)
 
     # Utility Variable
