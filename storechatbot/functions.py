@@ -25,9 +25,19 @@ def sendWhatsappMessage(fromId, message):
     return ans
 
 
+def Ans1(fromId):
+    message = 'one'
+    sendWhatsappMessage(fromId, message)
+
+
+def Ans2(fromId, message):
+    message = 'two'
+    sendWhatsappMessage(fromId, message)
+
+
 def handleWhatsappChat(fromId, profileName, phoneId, text):
     try:
-        ChatSession.objects.get(profile__phoneNumber=fromId)
+        chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     except ObjectDoesNotExist:
         # Check that user does not already exist
         if User.objects.filter(username=phoneId).exists():
@@ -51,9 +61,15 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             )
 
         # create a chat session
-            ChatSession.objects.create(profile=user_profiles)
+            chat = ChatSession.objects.create(profile=user_profiles)
             message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
             sendWhatsappMessage(fromId, message)
+
+    match text:
+        case "1":
+            Ans1(fromId)
+        case "2":
+            Ans2(fromId)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
