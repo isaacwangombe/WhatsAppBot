@@ -31,7 +31,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # Check that user does not already exist
         if User.objects.filter(username=phoneId).exists():
             user = User.objects.get(username=phoneId)
-            user_profiles = user.profiles
+            user_profiles = user.profile
 
         else:
             # create a user
