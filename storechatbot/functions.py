@@ -9,6 +9,7 @@ import io
 import re
 from .aifile import *
 from .models import ChatSession, Transaction, Profiles
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def sendWhatsappMessage(fromId, message):
@@ -27,7 +28,7 @@ def sendWhatsappMessage(fromId, message):
 def handleWhatsappChat(fromId, profileName, phoneId, text):
     try:
         ChatSession.objects.get(profile__phoneNumber=fromId)
-    except:
+    except ObjectDoesNotExist:
         # Check that user does not already exist
         if User.objects.filter(username=phoneId).exists():
             user = User.objects.get(username=phoneId)
