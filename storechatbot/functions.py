@@ -24,13 +24,18 @@ def sendWhatsappMessage(fromId, message):
     return ans
 
 
-def Ans1(fromId):
-    message = 'one'
+def SendReceipt(fromId):
+    message = 'Kindly send in your M-PESA OR BANK payment Receipt message below'
     sendWhatsappMessage(fromId, message)
 
 
-def Ans2(fromId):
-    message = 'twos'
+def PaymentDetails(fromId):
+    message = 'The Payment details '
+    sendWhatsappMessage(fromId, message)
+
+
+def RepairRequest(fromId):
+    message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Structural issues (e.g. broken window, door issues)'
     sendWhatsappMessage(fromId, message)
 
 
@@ -67,9 +72,11 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
     match text:
         case "1":
-            Ans1(fromId)
+            SendReceipt(fromId)
         case "2":
-            Ans2(fromId)
+            PaymentDetails(fromId)
+        case "3":
+            RepairRequest(fromId)
         case _:
             message = 'invalid'
             sendWhatsappMessage(fromId, message)
