@@ -25,17 +25,17 @@ def sendWhatsappMessage(fromId, message):
 
 
 def SendReceipt(fromId):
-    message = 'Kindly send in your M-PESA OR BANK payment Receipt message below'
+    message = 'Kindly send in your M-PESA OR BANK payment Receipt message below \n\n type EXIT to go back to Exit or MENU to return to main Menu'
     sendWhatsappMessage(fromId, message)
 
 
 def PaymentDetails(fromId):
-    message = 'The Payment details '
+    message = 'The Payment details \n\n type EXIT to go back to Exit or MENU to return to main Menu'
     sendWhatsappMessage(fromId, message)
 
 
 def RepairRequest(fromId):
-    message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Structural issues (e.g. broken window, door issues)'
+    message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Structural issues (e.g. broken window, door issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
     sendWhatsappMessage(fromId, message)
 
 
@@ -72,10 +72,13 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
     match text:
         case "1":
+            chat.chat_purpose = 'receipt'
             SendReceipt(fromId)
         case "2":
+            chat.chat_purpose = 'payment'
             PaymentDetails(fromId)
         case "3":
+            chat.chat_purpose = 'complaint'
             RepairRequest(fromId)
         case _:
             message = 'invalid'
