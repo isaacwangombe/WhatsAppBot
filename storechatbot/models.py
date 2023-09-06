@@ -8,9 +8,16 @@ import os
 
 
 class Profiles(models.Model):
+    RoleOptions = [
+        ('Owner', 'Owner'),
+        ('Manager', 'Manager'),
+        ('Renter', 'Renter')
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phoneNumber = models.CharField(max_length=30, null=True, blank=True)
     phoneId = models.CharField(max_length=200, null=True, blank=True)
+    role = models.CharField(
+        choices=RoleOptions, max_length=100, null=True, blank=True)
 
     # Utility Variable
     uniqueId = models.CharField(
