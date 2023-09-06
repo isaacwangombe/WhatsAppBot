@@ -47,10 +47,10 @@ def parse_transaction_message(text):
     return transaction
 
 
-def SendReceipt(fromId):
+def SendReceipt(fromId, text):
     message = 'Kindly send in your M-PESA OR BANK payment Receipt message below \n\n type EXIT to go back to Exit or MENU to return to main Menu'
-    # parse_transaction_message(text)
     sendWhatsappMessage(fromId, message)
+    parse_transaction_message(text)
 
 
 def PaymentDetails(fromId):
@@ -98,7 +98,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         case "1":
             chat.chat_purpose = 'receipt'
             chat.save()
-            SendReceipt(fromId)
+            SendReceipt(fromId, text)
         case "2":
             chat.chat_purpose = 'payment'
             chat.save()
