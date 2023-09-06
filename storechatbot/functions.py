@@ -49,7 +49,7 @@ def parse_transaction_message(text):
 
 def SendReceipt(fromId, text):
     message = 'Kindly send in your M-PESA OR BANK payment Receipt message below \n\n type EXIT to go back to Exit or MENU to return to main Menu'
-    parse_transaction_message(text)
+    # parse_transaction_message(text)
     sendWhatsappMessage(fromId, message)
 
 
