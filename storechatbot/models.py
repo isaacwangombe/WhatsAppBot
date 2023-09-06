@@ -29,6 +29,8 @@ class Profiles(models.Model):
 
 
 class Apartment(models.Model):
+    renter = models.ForeignKey(
+        Profiles, on_delete=models.CASCADE, null=True, blank=True)
     number = models.CharField(max_length=10, blank=True, null=True)
     monthly_rent = models.IntegerField(blank=True, null=True)
     payment_date = models.DateTimeField(blank=True, null=True)
@@ -52,32 +54,6 @@ class Apartment(models.Model):
 
     def __str__(self):
         return f"Apartment {self.number} - {self.property.name}"
-
-
-class Renter(models.Model):
-    profile = models.ForeignKey(
-        Profiles, on_delete=models.CASCADE, null=True, blank=True)
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
-
-    # Other fields for renter information
-
-    # Utility Variable
-    uniqueId = models.CharField(
-        null=True, blank=True, unique=True, max_length=100)
-    date_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        if self.date_created is None:
-            self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueId is None:
-            self.uniqueId = str(uuid4()).split('-')[4]
-
-        self.last_updated = timezone.localtime(timezone.now())
-        super(Renter, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
 
 
 class PropertyManager(models.Model):
@@ -111,8 +87,6 @@ class RepairRequest(models.Model):
         ('Pending', 'Pending'),
         ('Closed', 'Closed'),
     ]
-    renter = models.ForeignKey(
-        Renter, on_delete=models.CASCADE, null=True, blank=True)
     apartment = models.ForeignKey(
         Apartment, on_delete=models.CASCADE, null=True, blank=True)
     transaction_code = models.CharField(max_length=500, null=True, blank=True)
@@ -158,12 +132,12 @@ class Transaction(models.Model):
 
 
 class RenterPayment(models.Model):
-    renter = models.ForeignKey(Renter, on_delete=models.CASCADE)
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
     balance = models.DecimalField(max_digits=10, decimal_places=2)
     last_payment = models.DateTimeField(null=True, blank=True)
     total_payment = models.DecimalField(max_digits=10, decimal_places=2)
-    transaction_code = models.CharField(max_length=100, null=True, blank=True)
+    transaction = models.ForeignKey(
+        Transaction, on_delete=models.CASCADE, null=True, blank=True)
     payment_regularity = models.CharField(max_length=50)
     # Other fields for payment information
 
