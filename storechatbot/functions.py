@@ -24,9 +24,33 @@ def sendWhatsappMessage(fromId, message):
     return ans
 
 
-def SendReceipt(fromId):
+def AreYouDone(fromId):
+    message = 'Thank You for renting with us!\n\n If you want to perform another task Kindly type MENU to return to main Menu \n\n Otherwise, have an amazing day'
+    sendWhatsappMessage(fromId, message)
+
+
+def parse_transaction_message(message):
+    transaction_code = re.search(
+        r'(?:Ref\. Number|Transaction ID): ([A-Z0-9]+)', message).group(1)
+    amount = float(
+        re.search(r'(?i)Ksh[.\s]*([\d,]+\.\d+)', message).group(1).replace(',', ''))
+    date_str = re.search(
+        r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', message).group(1, 2)
+    date = datetime.strptime(' '.join(date_str), '%d-%m-%Y %H:%M')
+    recipient_name = re.search(r'-\s*(.*?)\s*,', message).group(1)
+    recipient_account = re.search(r'to\s*(\d+)', message).group(1)
+
+    transaction = Transaction(transaction_code=transaction_code, amount=amount,
+                              date=date, recipient_name=recipient_name, recipient_account=recipient_account)
+
+    transaction.save()
+    return transaction
+
+
+def SendReceipt(fromId, text):
     message = 'Kindly send in your M-PESA OR BANK payment Receipt message below \n\n type EXIT to go back to Exit or MENU to return to main Menu'
     sendWhatsappMessage(fromId, message)
+    parse_transaction_message(text)
 
 
 def PaymentDetails(fromId):
@@ -230,21 +254,3 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 #         # Send next message
 #         message = "Great, Thank you. \n Please select the type of business. Enter the number corresponding to the Business Type \n 1. Private\n 2. Partnership \n3. Non-Profit \n \n Enter just the number "
 #         sendWhatsappMessage(fromId, message)
-
-
-def parse_transaction_message(message):
-    transaction_code = re.search(
-        r'(?:Ref\. Number|Transaction ID): ([A-Z0-9]+)', message).group(1)
-    amount = float(
-        re.search(r'(?i)Ksh[.\s]*([\d,]+\.\d+)', message).group(1).replace(',', ''))
-    date_str = re.search(
-        r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', message).group(1, 2)
-    date = datetime.strptime(' '.join(date_str), '%d-%m-%Y %H:%M')
-    recipient_name = re.search(r'-\s*(.*?)\s*,', message).group(1)
-    recipient_account = re.search(r'to\s*(\d+)', message).group(1)
-
-    transaction = Transaction(transaction_code=transaction_code, amount=amount,
-                              date=date, recipient_name=recipient_name, recipient_account=recipient_account)
-
-    transaction.save()
-    return transaction
