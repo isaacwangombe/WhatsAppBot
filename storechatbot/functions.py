@@ -73,12 +73,15 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
     match text:
         case "1":
             chat.chat_purpose = 'receipt'
+            chat.save()
             SendReceipt(fromId)
         case "2":
             chat.chat_purpose = 'payment'
+            chat.save()
             PaymentDetails(fromId)
         case "3":
             chat.chat_purpose = 'complaint'
+            chat.save()
             RepairRequest(fromId)
         case _:
             message = 'invalid'
