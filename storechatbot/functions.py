@@ -66,9 +66,9 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             return
 
     match text:
-        case 1:
+        case "1":
             Ans1(fromId)
-        case 2:
+        case "2":
             Ans2(fromId)
         case _:
             message = 'invalid'
