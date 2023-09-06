@@ -63,31 +63,6 @@ class Apartment(models.Model):
         return f"Apartment {self.number} - {self.property.name}"
 
 
-class PropertyManager(models.Model):
-    profile = models.ForeignKey(
-        Profiles, on_delete=models.CASCADE, null=True, blank=True)
-
-    # Other fields for property manager information
-
-    # Utility Variable
-    uniqueId = models.CharField(
-        null=True, blank=True, unique=True, max_length=100)
-    date_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        if self.date_created is None:
-            self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueId is None:
-            self.uniqueId = str(uuid4()).split('-')[4]
-
-        self.last_updated = timezone.localtime(timezone.now())
-        super(PropertyManager, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-
 class RepairRequest(models.Model):
 
     StatusOptions = [
@@ -194,25 +169,3 @@ class ChatSession(models.Model):
 
         self.last_updated = timezone.localtime(timezone.now())
         super(ChatSession, self).save(*args, **kwargs)
-
-
-class Message(models.Model):
-
-    one = models.CharField(max_length=500, null=True, blank=True)
-    two = models.CharField(max_length=500, null=True, blank=True)
-    three = models.CharField(max_length=500, null=True, blank=True)
-
-    # Utility Variables
-    uniqueId = models.CharField(
-        null=True, blank=True, unique=True, max_length=100)
-    date_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        if self.date_created is None:
-            self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueId is None:
-            self.uniqueId = str(uuid4()).split('-')[4]
-
-        self.last_updated = timezone.localtime(timezone.now())
-        super(Message, self).save(*args, **kwargs)
