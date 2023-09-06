@@ -29,7 +29,7 @@ def Ans1(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def Ans2(fromId, message):
+def Ans2(fromId):
     message = 'twos'
     sendWhatsappMessage(fromId, message)
 
@@ -61,13 +61,14 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
         # create a chat session
             chat = ChatSession.objects.create(profile=user_profiles)
-    message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
-    sendWhatsappMessage(fromId, message)
+            message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
+            sendWhatsappMessage(fromId, message)
+            return
 
     match text:
-        case "1":
+        case 1:
             Ans1(fromId)
-        case "2":
+        case 2:
             Ans2(fromId)
         case _:
             message = 'invalid'
