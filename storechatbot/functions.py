@@ -57,11 +57,11 @@ def parse_transaction_message(fromId, text):
         recipient_name=recipient_name,
         recipient_account=recipient_account
     )
+    transaction.save()
 
     sendWhatsappMessage(fromId, 'Your transaction has been saved, thank you')
 
-    transaction.save()
-    return transaction
+    # return transaction
 
 
 def SendReceipt(fromId, text):
