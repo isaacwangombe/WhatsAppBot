@@ -51,8 +51,8 @@ def parse_transaction_message(fromId, text):
         recipient_account=recipient_account
     )
 
-    message = 'Your transaction has been saved, thank you'
-    sendWhatsappMessage(fromId, message)
+    sendWhatsappMessage(fromId, 'Your transaction has been saved, thank you')
+
     transaction.save()
     return transaction
 
