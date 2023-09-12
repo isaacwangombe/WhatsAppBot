@@ -97,11 +97,12 @@ class RepairRequest(models.Model):
 
 
 class Transaction(models.Model):
-    transaction_code = models.CharField(max_length=100)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    date = models.DateTimeField()
-    recipient_name = models.CharField(max_length=100)
-    recipient_account = models.CharField(max_length=200)
+    transaction_code = models.CharField(max_length=100, blank=True, null=True)
+    amount = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    recipient_name = models.CharField(max_length=100, blank=True, null=True)
+    recipient_account = models.CharField(max_length=200, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if self.date_created is None:
