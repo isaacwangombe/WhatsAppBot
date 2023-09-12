@@ -113,6 +113,9 @@ class Transaction(models.Model):
         self.last_updated = timezone.localtime(timezone.now())
         super(Transaction, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return f"Transaction{self.transaction_code}"
+
 
 class RenterPayment(models.Model):
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
