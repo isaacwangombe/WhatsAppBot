@@ -114,7 +114,10 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 message = 'invalid'
                 sendWhatsappMessage(fromId, message)
     elif chat.chat_purpose == 'receipt' and chat.question_no == 1:
-        parse_transaction_message(text)
+        message = "test"
+        sendWhatsappMessage(fromId, message)
+
+        # parse_transaction_message(text)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
