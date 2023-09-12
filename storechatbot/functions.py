@@ -32,7 +32,7 @@ def AreYouDone(fromId):
 def parse_transaction_message(fromId, text):
     # Your regular expression and parsing logic remains the same
 
-    # transaction_code = "Testing"
+    transaction_code = "Testing"
     # amount = 500
     # date = datetime.strptime(
     #     ' '.join(datetime.datetime.now()), '%d-%m-%Y %H:%M')
@@ -59,7 +59,7 @@ def parse_transaction_message(fromId, text):
     # )
     # transaction.save()
 
-    sendWhatsappMessage(fromId, text)
+    sendWhatsappMessage(fromId, transaction_code)
 
     # return transaction
 
