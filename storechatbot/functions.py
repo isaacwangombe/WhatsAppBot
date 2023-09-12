@@ -29,7 +29,7 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def parse_transaction_message(text):
+def parse_transaction_message(fromId, text):
     transaction_code = re.search(
         r'(?:Ref\. Number|Transaction ID): ([A-Z0-9]+)', text).group(1)
     amount = float(
@@ -42,7 +42,8 @@ def parse_transaction_message(text):
 
     transaction = Transaction(transaction_code=transaction_code, amount=amount,
                               date=date, recipient_name=recipient_name, recipient_account=recipient_account)
-
+    message = 'Your transaction has been saved, thank you'
+    sendWhatsappMessage(fromId, message)
     transaction.save()
     return transaction
 
@@ -114,9 +115,9 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 message = 'invalid'
                 sendWhatsappMessage(fromId, message)
     elif chat.chat_purpose == 'receipt' and chat.question_no == 1:
-        message = text
-        sendWhatsappMessage(fromId, message)
-        # parse_transaction_message(text)
+        # message = text
+        # sendWhatsappMessage(fromId, message)
+        parse_transaction_message(fromId, text)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
