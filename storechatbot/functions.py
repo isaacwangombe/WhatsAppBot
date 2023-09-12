@@ -50,7 +50,7 @@ def parse_transaction_message(fromId, text):
     # recipient_account = re.search(r'to\s*(\d+)', text).group(1)
 
     # Assuming you have a Transaction model defined with appropriate fields
-    Transaction.objects.create(
+    Transaction.objects.save(
         transaction_code="Testing",
         amount=500,
         # date=date,
