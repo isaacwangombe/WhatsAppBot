@@ -151,6 +151,7 @@ class ChatSession(models.Model):
 
     chat_purpose = models.CharField(
         choices=OPTIONS, max_length=100, null=True, blank=True)
+    question_no = models.IntegerField(default=0)
 
     profile = models.ForeignKey(
         Profiles, on_delete=models.CASCADE, null=True, blank=True)

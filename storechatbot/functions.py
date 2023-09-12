@@ -93,23 +93,26 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
             sendWhatsappMessage(fromId, message)
             return
-
-    match text:
-        case "1":
-            chat.chat_purpose = 'receipt'
-            chat.save()
-            SendReceipt(fromId, text)
-        case "2":
-            chat.chat_purpose = 'payment'
-            chat.save()
-            PaymentDetails(fromId)
-        case "3":
-            chat.chat_purpose = 'complaint'
-            chat.save()
-            RepairRequest(fromId)
-        case _:
-            message = 'invalid'
-            sendWhatsappMessage(fromId, message)
+    if chat.chat_purpose.exists() and chat.question_no == 0:
+        match text:
+            case "1":
+                chat.chat_purpose = 'receipt'
+                chat.question_no = chat.question_no+1
+                chat.save()
+                SendReceipt(fromId, text)
+            case "2":
+                chat.chat_purpose = 'payment'
+                chat.question_no = chat.question_no+1
+                chat.save()
+                PaymentDetails(fromId)
+            case "3":
+                chat.chat_purpose = 'complaint'
+                chat.question_no = chat.question_no+1
+                chat.save()
+                RepairRequest(fromId)
+            case _:
+                message = 'invalid'
+                sendWhatsappMessage(fromId, message)
 
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
