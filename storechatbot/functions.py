@@ -32,12 +32,12 @@ def AreYouDone(fromId):
 def parse_transaction_message(fromId, text):
     # Your regular expression and parsing logic remains the same
 
-    transaction_code = "Testing"
-    amount = 500
-    # date = datetime.strptime(
-    #     ' '.join(datetime.datetime.now()), '%d-%m-%Y %H:%M')
-    recipient_name = "Me"
-    recipient_account = "Mine"
+    # transaction_code = "Testing"
+    # amount = 500
+    # # date = datetime.strptime(
+    # #     ' '.join(datetime.datetime.now()), '%d-%m-%Y %H:%M')
+    # recipient_name = "Me"
+    # recipient_account = "Mine"
 
     # transaction_code = re.search(
     #     r'(?:Ref\. Number|Transaction ID): ([A-Z0-9]+)', text).group(1)
@@ -51,15 +51,15 @@ def parse_transaction_message(fromId, text):
 
     # Assuming you have a Transaction model defined with appropriate fields
     transaction = Transaction.objects.create(
-        transaction_code=transaction_code,
-        amount=amount,
+        transaction_code="Testing",
+        amount=500,
         # date=date,
-        recipient_name=recipient_name,
-        recipient_account=recipient_account
+        recipient_name="Me",
+        recipient_account="Mine"
     )
     transaction.save()
 
-    sendWhatsappMessage(fromId, transaction_code)
+    sendWhatsappMessage(fromId, text)
 
     # return transaction
 
