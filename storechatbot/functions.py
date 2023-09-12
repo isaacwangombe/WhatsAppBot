@@ -34,10 +34,10 @@ def parse_transaction_message(fromId, text):
 
     transaction_code = "Testing"
     amount = 500
-    date = datetime.strptime(
-        ' '.join(datetime.datetime.now()), '%d-%m-%Y %H:%M')
-    recipient_name = "Me"
-    recipient_account = "Mine"
+    # date = datetime.strptime(
+    #     ' '.join(datetime.datetime.now()), '%d-%m-%Y %H:%M')
+    # recipient_name = "Me"
+    # recipient_account = "Mine"
 
     # transaction_code = re.search(
     #     r'(?:Ref\. Number|Transaction ID): ([A-Z0-9]+)', text).group(1)
