@@ -110,7 +110,7 @@ class Transaction(models.Model):
             self.uniqueId = str(uuid4()).split('-')[4]
 
         self.last_updated = timezone.localtime(timezone.now())
-        super(ChatSession, self).save(*args, **kwargs)
+        super(Transaction, self).save(*args, **kwargs)
 
 
 class RenterPayment(models.Model):
