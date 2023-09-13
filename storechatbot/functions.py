@@ -76,7 +76,7 @@ def createUsers(fromId, text):
                 password='password',
             )
             profile = Profiles.objects.create(user=user)
-            question = question+1
+            chat.question_no = chat.question_no + 1
             chat.save()
             message = chat.question_no
             sendWhatsappMessage(fromId, message)
