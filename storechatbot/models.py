@@ -28,7 +28,7 @@ class Profiles(models.Model):
         ('Manager', 'Manager'),
         ('Renter', 'Renter')
     ]
-    user = models.ForeignKey(
+    creator = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
     apartment = models.ForeignKey(
         Apartment, on_delete=models.CASCADE, blank=True, null=True)
