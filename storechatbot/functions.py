@@ -152,7 +152,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.save()
                 message = 'What house Number are you creating a user for'
                 sendWhatsappMessage(fromId, message)
-                create_users(fromId, text)
+                create_users(fromId)
                 return
                 # RepairRequest(fromId)
             case _:
