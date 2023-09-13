@@ -77,7 +77,8 @@ def createUsers(fromId, text):
                 password='password',
             )
             profile = Profiles.objects.create(user=user)
-            profileId = profile.uniqueId
+            profiles = Profiles.objects.get(user=user)
+            profileId = profiles.uniqueId
             chat.question_no = chat.question_no + 1
             chat.save()
             message = "What is the tenants first name?"
