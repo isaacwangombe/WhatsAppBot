@@ -134,7 +134,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 Profiles.objects.create(
                     user=user.latest())
                 chat.save()
-                message = 'invalid'
+                message = 'create'
                 sendWhatsappMessage(fromId, message)
                 # RepairRequest(fromId)
             case _:
