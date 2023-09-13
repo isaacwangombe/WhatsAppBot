@@ -67,6 +67,7 @@ def parse_transaction_message(fromId, text):
 def createUsers(fromId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
+    profileId = ""
 
     match question:
         case 1:
@@ -76,12 +77,14 @@ def createUsers(fromId, text):
                 password='password',
             )
             profile = Profiles.objects.create(user=user)
+            profile.uniqueId = profileId
             chat.question_no = chat.question_no + 1
             chat.save()
-            message = chat.question_no
+            message = "What is the tenants first name?"
             sendWhatsappMessage(fromId, message)
         case 2:
-            message = "What is the tenants first name?"
+            profile = Profiles.objects.get(uniqueId=profileId)
+            message = "What is the tenants last name?"
             sendWhatsappMessage(fromId, message)
             chat.question_no+1
 
