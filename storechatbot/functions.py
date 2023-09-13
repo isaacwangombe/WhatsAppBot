@@ -67,7 +67,7 @@ def parse_transaction_message(fromId, text):
 def createUsers(fromId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
-    profileId = ""
+    profileId = None
 
     match question:
         case 1:
