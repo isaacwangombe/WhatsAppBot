@@ -7,13 +7,31 @@ from django.conf import settings
 import os
 
 
+class Apartment(models.Model):
+    number = models.CharField(max_length=10, blank=True, null=True)
+    occupied = models.BooleanField(default=False, blank=True, null=True)
+    monthly_rent = models.IntegerField(blank=True, null=True)
+    payment_date = models.DateTimeField(blank=True, null=True)
+
+    # Other fields for apartment information
+
+    # Utility Variable
+    uniqueId = models.CharField(
+        null=True, blank=True, unique=True, max_length=100)
+    date_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
+
+
 class Profiles(models.Model):
     RoleOptions = [
         ('Owner', 'Owner'),
         ('Manager', 'Manager'),
         ('Renter', 'Renter')
     ]
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
+    apartment = models.ForeignKey(
+        Apartment, on_delete=models.CASCADE, blank=True, null=True)
     first_name = models.CharField(max_length=30, null=True, blank=True)
     last_name = models.CharField(max_length=30, null=True, blank=True)
     phoneNumber = models.CharField(max_length=30, null=True, blank=True)
@@ -36,34 +54,6 @@ class Profiles(models.Model):
 
         self.last_updated = timezone.localtime(timezone.now())
         super(Profiles, self).save(*args, **kwargs)
-
-
-class Apartment(models.Model):
-    renter = models.ForeignKey(
-        Profiles, on_delete=models.CASCADE, null=True, blank=True)
-    number = models.CharField(max_length=10, blank=True, null=True)
-    monthly_rent = models.IntegerField(blank=True, null=True)
-    payment_date = models.DateTimeField(blank=True, null=True)
-
-    # Other fields for apartment information
-
-    # Utility Variable
-    uniqueId = models.CharField(
-        null=True, blank=True, unique=True, max_length=100)
-    date_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        if self.date_created is None:
-            self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueId is None:
-            self.uniqueId = str(uuid4()).split('-')[4]
-
-        self.last_updated = timezone.localtime(timezone.now())
-        super(Apartment, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Apartment {self.number} - {self.property.name}"
 
 
 class RepairRequest(models.Model):

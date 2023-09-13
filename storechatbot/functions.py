@@ -80,6 +80,7 @@ def create_users(fromId, text):
             Profiles.objects.create(user=user)
             chat.question_no+1
             chat.save()
+            sendWhatsappMessage(fromId, text)
 
 
 def SendReceipt(fromId, text):
@@ -152,6 +153,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 message = 'What house Number are you creating a user for'
                 sendWhatsappMessage(fromId, message)
                 create_users(fromId, text)
+                return
                 # RepairRequest(fromId)
             case _:
                 message = 'invalid'
