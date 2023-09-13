@@ -64,7 +64,7 @@ def parse_transaction_message(fromId, text):
     # return transaction
 
 
-def create_users(fromId, text):
+def createUsers(fromId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
 
@@ -152,7 +152,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.save()
                 message = 'What house Number are you creating a user for'
                 sendWhatsappMessage(fromId, message)
-                create_users(fromId)
+                createUsers()
                 return
                 # RepairRequest(fromId)
             case _:
