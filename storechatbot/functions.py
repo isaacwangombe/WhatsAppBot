@@ -149,6 +149,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
                 chat.save()
+                message = 'What house Number are you creating a user for'
+                sendWhatsappMessage(fromId, message)
                 create_users(fromId, text)
                 # RepairRequest(fromId)
             case _:
