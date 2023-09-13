@@ -85,12 +85,12 @@ def createUsers(fromId, text):
             return
         case 2:
             profile = Profiles.objects.get(uniqueId="bad249e886bf")
-            # profile.first_name = text
-            # profile.save()
+            profile.first_name = text
+            profile.save()
             message = "What is the tenants last name?"
 
-            sendWhatsappMessage(fromId, profileId)
-            chat.question_no+1
+            sendWhatsappMessage(fromId, message)
+            # chat.question_no+1
 
 
 def SendReceipt(fromId, text):
