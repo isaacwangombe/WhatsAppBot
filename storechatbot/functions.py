@@ -128,12 +128,14 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.save()
                 RepairRequest(fromId)
             case "4":
-                # chat.chat_purpose = 'create'
+                chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
-                User.objects.create_user()
+                User.save()
                 Profiles.objects.create(
                     user=user.latest())
                 chat.save()
+                message = 'invalid'
+                sendWhatsappMessage(fromId, message)
                 # RepairRequest(fromId)
             case _:
                 message = 'invalid'
