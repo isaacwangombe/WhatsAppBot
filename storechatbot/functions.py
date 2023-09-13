@@ -29,6 +29,9 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
+# def CreateUSer(fromId, message, text):
+
+
 def parse_transaction_message(fromId, text):
     # Your regular expression and parsing logic remains the same
 
@@ -59,9 +62,15 @@ def parse_transaction_message(fromId, text):
     )
     # transaction.save()
 
-    sendWhatsappMessage(fromId, text)
+
+def sendWhatsappMessage(fromId, text):
+    message = 'Kindly write the details of the problem!\n\n type EXIT to go back to Exit or MENU to return to main Menu'
+    sendWhatsappMessage(fromId, message)
 
     # return transaction
+
+
+# def RepairSpecifics(fromId, text):
 
 
 def SendReceipt(fromId, text):
@@ -70,13 +79,16 @@ def SendReceipt(fromId, text):
     parse_transaction_message(text)
 
 
-def PaymentDetails(fromId):
+def PaymentDetails(fromId, text):
     message = 'The Payment details \n\n type EXIT to go back to Exit or MENU to return to main Menu'
+
     sendWhatsappMessage(fromId, message)
 
 
-def RepairRequest(fromId):
-    message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Structural issues (e.g. broken window, door issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
+def RepairRequest(fromId, text):
+
+    # message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Structural issues (e.g. broken window, door issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
+    message = '4) Create User'
     sendWhatsappMessage(fromId, message)
 
 
@@ -110,6 +122,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
             sendWhatsappMessage(fromId, message)
             return
+
     if chat.question_no == 0:
         match text:
             case "1":
@@ -125,6 +138,14 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             case "3":
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
+                chat.save()
+                RepairRequest(fromId)
+            case "4":
+                chat.chat_purpose = 'create'
+                chat.question_no = chat.question_no+1
+                User.objects.create_user()
+                Profiles.objects.create(
+                    user=user.latest())
                 chat.save()
                 RepairRequest(fromId)
             case _:
