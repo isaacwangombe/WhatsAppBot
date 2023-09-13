@@ -72,19 +72,20 @@ def createUsers(fromId, phoneId, text):
     match question:
         case 1:
             profile = Profiles.objects.create(creator=creator)
+
             chat.question_no = chat.question_no + 1
             chat.save()
             message = "What is the tenants first name?"
             sendWhatsappMessage(fromId, message)
 
-        case 2:
             profile = Profiles.objects.filter(creator=creator).last()
             profile.first_name = text
             profile.save()
-            message = "What is the tenant's last name?"
-            sendWhatsappMessage(fromId, creator.username)
 
-            # chat.question_no+1
+        case 2:
+            chat.question_no+1
+            message = "What is the tenant's last name?"
+            sendWhatsappMessage(fromId, message)
 
 
 def SendReceipt(fromId, text):
