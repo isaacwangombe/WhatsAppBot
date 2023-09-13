@@ -74,7 +74,7 @@ def create_users(fromId, text):
             sendWhatsappMessage(fromId, message)
             user = User.objects.create_user(
                 username=text,
-                email='tests@test.com',
+                # email='tests@test.com',
                 password='password',
             )
             Profiles.objects.create(user=user)
@@ -149,7 +149,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
                 chat.save()
-                create_users(fromId, message)
+                create_users(fromId, text)
                 # RepairRequest(fromId)
             case _:
                 message = 'invalid'
