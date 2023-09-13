@@ -79,7 +79,7 @@ def createUsers(fromId, phoneId, text):
             sendWhatsappMessage(fromId, profileId)
 
         case 2:
-            profile = Profiles.objects.filter(creator=profileId).last()
+            profile = Profiles.objects.get(creator=profileId)
             profile.first_name = text
             profile.save()
             message = "What is the tenant's last name?"
