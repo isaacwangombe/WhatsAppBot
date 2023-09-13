@@ -89,7 +89,7 @@ def createUsers(fromId, text):
             # profile.save()
             message = "What is the tenants last name?"
 
-            sendWhatsappMessage(fromId, profile)
+            sendWhatsappMessage(fromId, message)
             chat.question_no+1
 
 
