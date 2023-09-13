@@ -84,12 +84,16 @@ def createUsers(fromId, text):
             sendWhatsappMessage(fromId, profileId)
 
         case 2:
-            profile = Profiles.objects.get(uniqueId=profileId)
-            profile.first_name = text
-            profile.save()
-            message = "What is the tenants last name?"
+            if profileId is not None:
+                profile = Profiles.objects.get(uniqueId=profileId)
+                profile.first_name = text
+                profile.save()
+                message = "What is the tenant's last name?"
+                sendWhatsappMessage(fromId, message)
+            else:
+                message = "Testing"
 
-            sendWhatsappMessage(fromId, message)
+                sendWhatsappMessage(fromId, message)
             # chat.question_no+1
 
 
