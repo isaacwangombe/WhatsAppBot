@@ -47,7 +47,7 @@ def whatsappWebhook(request):
                         # sendWhatsappMessage(fromId, message)
 
                         handleWhatsappChat(fromId, profileName, phoneId, text)
-                        create_users(fromId, text)
+                        createUsers(fromId, text)
                 except:
                     pass
 
