@@ -82,7 +82,7 @@ def createUsers(fromId, text):
             chat.question_no = chat.question_no + 1
             chat.save()
             message = "What is the tenants first name?"
-            sendWhatsappMessage(fromId, message)
+            sendWhatsappMessage(fromId, profileId)
         case 2:
             profile = Profiles.objects.get(uniqueId=profileId)
             profile.first_name = text
