@@ -64,19 +64,15 @@ def parse_transaction_message(fromId, text):
     # return transaction
 
 
-def createUsers(fromId, text):
+def createUsers(fromId, phoneId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
     profileId = None
 
     match question:
         case 1:
-            user = User.objects.create_user(
-                username=text,
-                # email='tests@test.com',
-                password='password',
-            )
-            profile = Profiles.objects.create(user=user)
+            creator = User.objects.get(username=phoneId)
+            profile = Profiles.objects.create(creator=creator)
             profileId = profile.uniqueId
             chat.question_no = chat.question_no + 1
             chat.save()
