@@ -79,7 +79,7 @@ def createUsers(fromId, text):
             chat.question_no+1
             chat.save()
             message = chat.question_no
-            sendWhatsappMessage(fromId, text)
+            sendWhatsappMessage(fromId, message)
         case 2:
             message = "What is the tenants first name?"
             sendWhatsappMessage(fromId, message)
