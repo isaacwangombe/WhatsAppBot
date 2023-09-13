@@ -64,6 +64,24 @@ def parse_transaction_message(fromId, text):
     # return transaction
 
 
+def create_users(fromId, text):
+    chat = ChatSession.objects.get(profile__phoneNumber=fromId)
+    question = chat.question_no
+
+    match question:
+        case 1:
+            message = "Kindly enter the House Number"
+            sendWhatsappMessage(fromId, message)
+            user = User.objects.create_user(
+                username=text,
+                email='tests@test.com',
+                password='password',
+            )
+            Profiles.objects.create(user=user)
+            chat.question_no+1
+            chat.save()
+
+
 def SendReceipt(fromId, text):
     message = 'Kindly send in your M-PESA OR BANK payment Receipt message below \n\n type EXIT to go back to Exit or MENU to return to main Menu'
     sendWhatsappMessage(fromId, message)
@@ -130,17 +148,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             case "4":
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
-                user = User.objects.create_user(
-                    username="Name",
-                    email='tests@test.com',
-                    password='password',
-                    first_name="Names",
-                )
-                Profiles.objects.create(
-                    user=user)
                 chat.save()
-                message = 'create'
-                sendWhatsappMessage(fromId, message)
+                create_users(fromId, message)
                 # RepairRequest(fromId)
             case _:
                 message = 'invalid'
