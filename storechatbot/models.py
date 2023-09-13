@@ -13,8 +13,11 @@ class Profiles(models.Model):
         ('Manager', 'Manager'),
         ('Renter', 'Renter')
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=30, null=True, blank=True)
+    last_name = models.CharField(max_length=30, null=True, blank=True)
     phoneNumber = models.CharField(max_length=30, null=True, blank=True)
+    email = models.CharField(max_length=30, null=True, blank=True)
     phoneId = models.CharField(max_length=200, null=True, blank=True)
     role = models.CharField(
         choices=RoleOptions, max_length=100, null=True, blank=True)
