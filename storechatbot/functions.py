@@ -70,17 +70,21 @@ def createUsers(fromId, text):
 
     match question:
         case 1:
-            message = "Kindly enter the House Number"
-            sendWhatsappMessage(fromId, message)
             user = User.objects.create_user(
                 username=text,
                 # email='tests@test.com',
                 password='password',
             )
-            Profiles.objects.create(user=user)
+            profile = Profiles.objects.create(user=user)
             chat.question_no+1
             chat.save()
             sendWhatsappMessage(fromId, text)
+        case 2:
+            message = "What is the tenants first name?"
+            sendWhatsappMessage(fromId, message)
+
+            profile.first_name = text
+            profile.save()
 
 
 def SendReceipt(fromId, text):
@@ -150,8 +154,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
                 chat.save()
-                # message = 'What house Number are you creating a user for'
-                # sendWhatsappMessage(fromId, message)
+                message = 'What house Number are you creating a user for'
+                sendWhatsappMessage(fromId, message)
                 createUsers(fromId)
                 return
                 # RepairRequest(fromId)
