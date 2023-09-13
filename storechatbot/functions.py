@@ -130,7 +130,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
 
             # create a profile
             user_profiles = Profiles.objects.create(
-                user=user,
+                creator=user,
                 phoneNumber=fromId,
                 phoneId=phoneId
             )
@@ -162,7 +162,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.question_no = chat.question_no+1
                 chat.save()
                 message = 'What house Number are you creating a user for'
-                sendWhatsappMessage(fromId, message)
+                sendWhatsappMessage(fromId, phoneId, message)
                 createUsers(fromId)
                 return
                 # RepairRequest(fromId)
