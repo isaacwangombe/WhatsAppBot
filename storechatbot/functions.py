@@ -85,7 +85,7 @@ def createUsers(fromId, text):
             sendWhatsappMessage(fromId, profileId)
             return
         case 2:
-            # profile = Profiles.objects.get(uniqueId=profileId)
+            profile = Profiles.objects.get(uniqueId=profileId)
             # profile.first_name = text
             # profile.save()
             message = "What is the tenants last name?"
