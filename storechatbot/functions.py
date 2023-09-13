@@ -130,7 +130,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             case "4":
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
-                User.objects.create_user(
+                user = User.objects.create_user(
                     username="Name",
                     email='tests@test.com',
                     password='password',
