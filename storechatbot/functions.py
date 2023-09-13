@@ -83,7 +83,7 @@ def createUsers(fromId, phoneId, text):
             profile.save()
             chat.question_no = chat.question_no + 1
             message = "What is the tenant's last name?"
-            sendWhatsappMessage(fromId, creator.username)
+            sendWhatsappMessage(fromId, message)
 
         case 3:
             profile = Profiles.objects.filter(creator=creator).last()
@@ -91,7 +91,7 @@ def createUsers(fromId, phoneId, text):
             profile.save()
             chat.question_no = chat.question_no + 1
             message = "What is the tenant's phone number?"
-            sendWhatsappMessage(fromId, creator.username)
+            sendWhatsappMessage(fromId, message)
 
         case 4:
             profile = Profiles.objects.filter(creator=creator).last()
@@ -99,7 +99,7 @@ def createUsers(fromId, phoneId, text):
             profile.save()
             chat.question_no = chat.question_no + 1
             message = "What is the tenant's email address?"
-            sendWhatsappMessage(fromId, creator.username)
+            sendWhatsappMessage(fromId, message)
 
         case 5:
             profile = Profiles.objects.filter(creator=creator).last()
@@ -107,7 +107,7 @@ def createUsers(fromId, phoneId, text):
             profile.save()
             chat.question_no = chat.question_no + 1
             message = "What is the tenant's role?"
-            sendWhatsappMessage(fromId, creator.username)
+            sendWhatsappMessage(fromId, message)
 
 
 def SendReceipt(fromId, text):
