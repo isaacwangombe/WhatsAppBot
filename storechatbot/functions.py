@@ -67,19 +67,18 @@ def parse_transaction_message(fromId, text):
 def createUsers(fromId, phoneId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
+    creator = User.objects.get(username=phoneId)
 
     match question:
         case 1:
-            creator = User.objects.get(username=phoneId)
             profile = Profiles.objects.create(creator=creator)
-            profileId = profile.uniqueId
             chat.question_no = chat.question_no + 1
             chat.save()
             message = "What is the tenants first name?"
-            sendWhatsappMessage(fromId, profileId)
+            sendWhatsappMessage(fromId, message)
 
         case 2:
-            profile = Profiles.objects.get(creator=profileId)
+            profile = Profiles.objects.get(creator=creator)
             profile.first_name = text
             profile.save()
             message = "What is the tenant's last name?"
