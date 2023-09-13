@@ -67,31 +67,25 @@ def parse_transaction_message(fromId, text):
 def createUsers(fromId, phoneId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
-    profileId = None
-    sendWhatsappMessage(fromId, phoneId)
 
-    # match question:
-    #     case 1:
-    #         creator = User.objects.get(username=phoneId)
-    #         profile = Profiles.objects.create(creator=creator)
-    #         profileId = profile.uniqueId
-    #         chat.question_no = chat.question_no + 1
-    #         chat.save()
-    #         message = "What is the tenants first name?"
-    #         sendWhatsappMessage(fromId, profileId)
+    match question:
+        case 1:
+            creator = User.objects.get(username=phoneId)
+            profile = Profiles.objects.create(creator=creator)
+            profileId = profile.uniqueId
+            chat.question_no = chat.question_no + 1
+            chat.save()
+            message = "What is the tenants first name?"
+            sendWhatsappMessage(fromId, profileId)
 
-    #     case 2:
-    #         if profileId is not None:
-    #             profile = Profiles.objects.get(uniqueId=profileId)
-    #             profile.first_name = text
-    #             profile.save()
-    #             message = "What is the tenant's last name?"
-    #             sendWhatsappMessage(fromId, message)
-    #         else:
-    #             message = "Testing"
+        case 2:
+            profile = Profiles.objects.filter(uniqueId=profileId).last()
+            profile.first_name = text
+            profile.save()
+            message = "What is the tenant's last name?"
+            sendWhatsappMessage(fromId, message)
 
-    #             sendWhatsappMessage(fromId, message)
-    #         # chat.question_no+1
+            # chat.question_no+1
 
 
 def SendReceipt(fromId, text):
