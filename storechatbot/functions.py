@@ -82,6 +82,7 @@ def createUsers(fromId, phoneId, text):
             profile.first_name = text
             profile.save()
             chat.question_no = chat.question_no + 1
+            chat.save()
             message = "What is the tenant's last name?"
             sendWhatsappMessage(fromId, message)
 
@@ -90,6 +91,7 @@ def createUsers(fromId, phoneId, text):
             profile.last_name = text
             profile.save()
             chat.question_no = chat.question_no + 1
+            chat.save()
             message = "What is the tenant's phone number?"
             sendWhatsappMessage(fromId, message)
 
@@ -98,6 +100,7 @@ def createUsers(fromId, phoneId, text):
             profile.phoneNumber = text
             profile.save()
             chat.question_no = chat.question_no + 1
+            chat.save()
             message = "What is the tenant's email address?"
             sendWhatsappMessage(fromId, message)
 
@@ -106,6 +109,7 @@ def createUsers(fromId, phoneId, text):
             profile.first_name = text
             profile.save()
             chat.question_no = chat.question_no + 1
+            chat.save()
             message = "What is the tenant's role?"
             sendWhatsappMessage(fromId, message)
 
