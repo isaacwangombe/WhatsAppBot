@@ -38,11 +38,14 @@ def parse_transaction_message(fromId, text):
     # #     ' '.join(datetime.datetime.now()), '%d-%m-%Y %H:%M')
     # recipient_name = "Me"
     # recipient_account = "Mine"
+    if re.search(
+            r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1):
+        transaction_code = re.search(
+            r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
 
-    # transaction_code = re.search(
-    #     r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
-    transaction_code = re.search(
-        r'(?:Ref\. Number|Transaction ID|Ref\.|Ref|)\s*([A-Z0-9]+)', text).group(1)
+    else:
+        transaction_code = "Works"
+
     # amount = float(
     #     re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
 
