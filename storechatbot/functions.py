@@ -36,10 +36,10 @@ def parse_transaction_message(fromId, text):
 
     # Your regular expression and parsing logic remains the same
 
-    if transaction_code_regex != None:
+    try:
         transaction_code = transaction_code_regex
 
-    else:
+    except:
         transaction_code = "Okay"
         # transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
