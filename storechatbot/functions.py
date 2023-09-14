@@ -36,7 +36,7 @@ def parse_transaction_message(fromId, text):
 
     # Your regular expression and parsing logic remains the same
 
-    if transaction_code_regex != "":
+    if transaction_code_regex != None:
         transaction_code = transaction_code_regex
 
     else:
