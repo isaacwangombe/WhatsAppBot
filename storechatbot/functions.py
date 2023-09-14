@@ -39,13 +39,13 @@ def parse_transaction_message(fromId, text):
     # recipient_name = "Me"
     # recipient_account = "Mine"
 
-    transaction_code = re.search(
-        r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
-    amount = float(
-        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
+    # transaction_code = re.search(
+    #     r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
+    # amount = float(
+    #     re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
 
-    date_str = re.search(
-        r'(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}|\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})', text).group(1, 2)
+    # date_str = re.search(
+    #     r'(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}|\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})', text).group(1, 2)
     # # date_str = re.search(
     # #     r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', text).group(1, 2)
     # # date = datetime.strptime(' '.join(date_str), '%d-%m-%Y %H:%M')
@@ -62,7 +62,7 @@ def parse_transaction_message(fromId, text):
     # )
     # transaction.save()
 
-    sendWhatsappMessage(fromId, transaction_code)
+    sendWhatsappMessage(fromId, text)
 
     # return transaction
 
