@@ -39,7 +39,7 @@ def parse_transaction_message(fromId, text):
     # recipient_name = "Me"
     # recipient_account = "Mine"
     if re.search(
-            r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1):
+            r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1) == "":
         transaction_code = re.search(
             r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
 
