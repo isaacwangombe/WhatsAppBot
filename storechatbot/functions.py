@@ -40,7 +40,7 @@ def parse_transaction_message(fromId, text):
     # recipient_account = "Mine"
 
     transaction_code = re.search(
-        r'(?:Ref\. Number|Transaction ID): ([A-Z0-9]+)', text).group(1)
+        r'(?:Ref\. Number|Transaction ID)\s ([A-Z0-9]+)', text).group(1)
     # amount = float(
     #     re.search(r'(?i)Ksh[.\s]*([\d,]+\.\d+)', text).group(1).replace(',', ''))
     # # date_str = re.search(
