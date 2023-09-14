@@ -30,21 +30,17 @@ def AreYouDone(fromId):
 
 
 def parse_transaction_message(fromId, text):
+
+    transaction_code_regex = re.search(
+        r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
+
     # Your regular expression and parsing logic remains the same
 
-    # transaction_code = "Testing"
-    # amount = 500
-    # # date = datetime.strptime(
-    # #     ' '.join(datetime.datetime.now()), '%d-%m-%Y %H:%M')
-    # recipient_name = "Me"
-    # recipient_account = "Mine"
-    if re.search(
-            r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1) == "":
-        transaction_code = re.search(
-            r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
+    if transaction_code_regex != "":
+        transaction_code = transaction_code_regex
 
     else:
-        transaction_code = "Works"
+        transaction_code = re.search(r'\b[0-9A-Z]+\b', text).group()
 
     # amount = float(
     #     re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
