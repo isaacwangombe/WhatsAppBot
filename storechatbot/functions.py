@@ -39,8 +39,8 @@ def parse_transaction_message(fromId, text):
         transaction_code = transaction_code_regex.group(1)
 
     else:
-        transaction_code = "Okay"
-        # transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
+        # transaction_code = "Okay"
+        transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
     # amount = float(
     #     re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
