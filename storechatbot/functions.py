@@ -32,11 +32,11 @@ def AreYouDone(fromId):
 def parse_transaction_message(fromId, text):
 
     transaction_code_regex = re.search(
-        r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
+        r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
 
     # Your regular expression and parsing logic remains the same
     if transaction_code_regex:
-        transaction_code = transaction_code_regex
+        transaction_code = transaction_code_regex.group(1)
 
     else:
         transaction_code = "Okay"
