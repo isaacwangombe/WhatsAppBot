@@ -35,11 +35,10 @@ def parse_transaction_message(fromId, text):
         r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text).group(1)
 
     # Your regular expression and parsing logic remains the same
-
-    try:
+    if transaction_code_regex:
         transaction_code = transaction_code_regex
 
-    except:
+    else:
         transaction_code = "Okay"
         # transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
