@@ -44,10 +44,10 @@ def parse_transaction_message(fromId, text):
     amount = float(
         re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
 
+    date_str = re.search(
+        r'(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}|\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})', text).group(1, 2)
     # date_str = re.search(
-    #     r'(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}|\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})', text).group(1, 2)
-    # # date_str = re.search(
-    # #     r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', text).group(1, 2)
+    #     r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', text).group(1, 2)
     # # date = datetime.strptime(' '.join(date_str), '%d-%m-%Y %H:%M')
     # recipient_name = re.search(r'-\s*(.*?)\s*,', text).group(1)
     # recipient_account = re.search(r'to\s*(\d+)', text).group(1)
@@ -62,7 +62,7 @@ def parse_transaction_message(fromId, text):
     # )
     # transaction.save()
 
-    sendWhatsappMessage(fromId, amount)
+    sendWhatsappMessage(fromId, date_str)
 
     # return transaction
 
