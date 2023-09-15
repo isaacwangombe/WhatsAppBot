@@ -39,11 +39,10 @@ def parse_transaction_message(fromId, text):
         transaction_code = transaction_code_regex.group(1)
 
     else:
-        # transaction_code = "Okay"
         transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
-    # amount = float(
-    #     re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
+    amount = float(
+        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
 
     # date_str = re.search(
     #     r'(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}|\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})', text).group(1, 2)
@@ -63,7 +62,7 @@ def parse_transaction_message(fromId, text):
     # )
     # transaction.save()
 
-    sendWhatsappMessage(fromId, transaction_code)
+    sendWhatsappMessage(fromId, amount)
 
     # return transaction
 
