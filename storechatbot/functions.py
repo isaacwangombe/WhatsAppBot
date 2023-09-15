@@ -62,7 +62,7 @@ def parse_transaction_message(fromId, text):
     # )
     # transaction.save()
 
-    sendWhatsappMessage(fromId, date_str)
+    sendWhatsappMessage(fromId, amount)
 
     # return transaction
 
