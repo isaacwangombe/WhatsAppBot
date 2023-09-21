@@ -10,8 +10,6 @@ from .aifile import *
 from .models import ChatSession, Transaction, Profiles
 from django.core.exceptions import ObjectDoesNotExist
 
-t = datetime.datetime(2012, 2, 23, 0, 0)
-
 
 def sendWhatsappMessage(fromId, message):
     headers = {"Authorization": settings.WHATSAPP_TOKEN}
@@ -38,7 +36,7 @@ def parse_transaction_message(fromId, text):
     amount_regex = float(
         re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
     date_regex = re.findall(
-        r'(\d{2}[-/]\d{2}[-/]\d{4})', text)
+        r'\b\d{1,2}[-/]\d{1,2}[-/]\d{2,4}\b', text)
 
     # Your regular expression and parsing logic remains the same
     if transaction_code_regex:
@@ -49,7 +47,7 @@ def parse_transaction_message(fromId, text):
 
     amount = amount_regex
 
-    date_str = t.strftime(date_regex)
+    date_str = date_regex
     # date_str = re.search(
     #     r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', text).group(1, 2)
     # # date = datetime.strptime(' '.join(date_str), '%d-%m-%Y %H:%M')
@@ -66,7 +64,7 @@ def parse_transaction_message(fromId, text):
     # )
     # transaction.save()
 
-    sendWhatsappMessage(fromId, date_str)
+    sendWhatsappMessage(fromId, date_regex)
 
     # return transaction
 
