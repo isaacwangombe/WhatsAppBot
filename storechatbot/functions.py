@@ -35,8 +35,7 @@ def parse_transaction_message(fromId, text):
         r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
     amount_regex = float(
         re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
-    date_regex = re.findall(
-        r'\b\d{1,2}[-/]\d{1,2}[-/]\d{2,4}\b', text)
+    date_regex = re.findall(r'(\d{2}[-/]\d{2}[-/]\d{4})', text)
 
     # Your regular expression and parsing logic remains the same
     if transaction_code_regex:
