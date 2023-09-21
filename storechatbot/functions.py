@@ -48,8 +48,8 @@ def parse_transaction_message(fromId, text):
     amount = amount_regex
 
     try:
-        date_obj = datetime.strptime(date_regex, "%d-%m-%Y")
-        date_str = date_obj.strftime("%d/%m/%Y")
+        date_obj = datetime.strptime(date_regex, "%d/%m/%Y")
+        date_str = date_obj.strftime("%d-%m-%Y")
     except:
         date_str = date_regex
 
