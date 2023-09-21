@@ -47,11 +47,7 @@ def parse_transaction_message(fromId, text):
 
     amount = amount_regex
 
-    try:
-        date_obj = datetime.strptime(date_regex, "%d/%m/%Y")
-        date_str = date_obj.strftime("%d-%m-%Y")
-    except:
-        date_str = date_regex
+    date_str = date_regex.replace("/", "-")
 
     # date_str = re.search(
     #     r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', text).group(1, 2)
