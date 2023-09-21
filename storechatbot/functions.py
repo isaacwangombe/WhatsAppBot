@@ -68,7 +68,6 @@ def parse_transaction_message(fromId, text):
     #     recipient_account="Mine"
     # )
     # transaction.save()
-    print("test")
 
     sendWhatsappMessage(fromId, date_str)
 
