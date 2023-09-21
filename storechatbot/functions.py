@@ -35,7 +35,7 @@ def parse_transaction_message(fromId, text):
         r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
     amount_regex = float(
         re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
-    date_regex = re.findall(r'(\d{2}[-/]\d{2}[-/]\d{4})', text)
+    date_regex = re.search(r'(\d{2}[-/]\d{2}[-/]\d{4})', text).group(1)
 
     # Your regular expression and parsing logic remains the same
     if transaction_code_regex:
@@ -62,8 +62,9 @@ def parse_transaction_message(fromId, text):
     #     recipient_account="Mine"
     # )
     # transaction.save()
+    print("test")
 
-    sendWhatsappMessage(fromId, type(text))
+    sendWhatsappMessage(fromId, date_str)
 
     # return transaction
 
