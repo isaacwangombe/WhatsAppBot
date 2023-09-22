@@ -63,8 +63,7 @@ def parse_transaction_message(fromId, text):
     #     # recipient_name="Me",
     #     # recipient_account="Mine"
     # )
-    transaction = Transaction
-    transaction.transaction_code = "transaction_code"
+    transaction = Transaction(transaction_code="transaction_code")
     # transaction = Transaction.objects.create(
     #     transaction_code="transaction_code")
     transaction.save()
