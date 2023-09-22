@@ -106,8 +106,17 @@ class Transaction(models.Model):
     #     self.last_updated = timezone.localtime(timezone.now())
     #     super(Transaction, self).save(*args, **kwargs)
 
-    def __str__(self):
-        return f"Transaction{self.transaction_code}"
+    def save(self, *args, **kwargs):
+        if self.date_created is None:
+            self.date_created = timezone.localtime(timezone.now())
+        if self.uniqueId is None:
+            self.uniqueId = str(uuid4()).split('-')[4]
+
+        self.last_updated = timezone.localtime(timezone.now())
+        super(Transaction, self).save(*args, **kwargs)
+
+    # def __str__(self):
+    #     return f"Transaction{self.transaction_code}"
 
 
 class RenterPayment(models.Model):
