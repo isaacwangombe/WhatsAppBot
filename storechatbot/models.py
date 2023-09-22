@@ -90,6 +90,8 @@ class RepairRequest(models.Model):
 
 
 class Transaction(models.Model):
+    sender = models.ForeignKey(
+        Profiles, on_delete=models.CASCADE, blank=True, null=True)
     transaction_code = models.CharField(max_length=100, blank=True, null=True)
     amount = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True)
@@ -113,7 +115,7 @@ class Transaction(models.Model):
         super(Transaction, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"Transaction{self.transaction_code}"
+        return self.sender__apartment__number
 
 
 class RenterPayment(models.Model):

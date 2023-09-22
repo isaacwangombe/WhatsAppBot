@@ -31,6 +31,8 @@ def AreYouDone(fromId):
 
 def parse_transaction_message(fromId, text):
 
+    sender = Profiles.objects.get(phoneNumber=fromId)
+
     transaction_code_regex = re.search(
         r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
     amount_regex = float(
@@ -56,20 +58,21 @@ def parse_transaction_message(fromId, text):
     # recipient_account = re.search(r'to\s*(\d+)', text).group(1)
 
     # Assuming you have a Transaction model defined with appropriate fields
-    # Transaction.objects.create(
-    #     transaction_code=transaction_code,
-    #     # amount=amount,
-    #     # date=date_str,
-    #     # recipient_name="Me",
-    #     # recipient_account="Mine"
-    # )
-    transaction = Transaction(transaction_code="transaction_code")
+    transaction = Transaction.objects.create(
+        sender=sender,
+        transaction_code=transaction_code,
+        amount=amount,
+        date=date_str,
+        recipient_name="Me",
+        recipient_account="Mine"
+    )
+    # transaction = Transaction.(transaction_code="transaction_code")
 
     # transaction = Transaction.objects.create(
     #     transaction_code="transaction_code")
-    transaction.save()
+    # transaction.save()
 
-    sendWhatsappMessage(fromId, date_str)
+    sendWhatsappMessage(fromId, fromId)
 
     # return transaction
 
