@@ -115,7 +115,7 @@ class Transaction(models.Model):
         super(Transaction, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.sender__apartment__number
+        return self.sender
 
 
 class RenterPayment(models.Model):
