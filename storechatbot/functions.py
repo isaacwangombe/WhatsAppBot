@@ -56,14 +56,14 @@ def parse_transaction_message(fromId, text):
     # recipient_account = re.search(r'to\s*(\d+)', text).group(1)
 
     # Assuming you have a Transaction model defined with appropriate fields
-    transaction = Transaction.objects.create(
+    Transaction.objects.create(
         transaction_code=transaction_code,
         amount=amount,
         date=date_str,
         recipient_name="Me",
         recipient_account="Mine"
     )
-    transaction.save()
+    # transaction.save()
 
     # sendWhatsappMessage(fromId, date_str)
 
