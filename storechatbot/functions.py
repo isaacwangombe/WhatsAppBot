@@ -58,14 +58,14 @@ def parse_transaction_message(fromId, text):
     # recipient_account = re.search(r'to\s*(\d+)', text).group(1)
 
     # Assuming you have a Transaction model defined with appropriate fields
-    transaction = Transaction.objects.create(
-        sender=sender,
-        transaction_code=transaction_code,
-        amount=amount,
-        date=date_str,
-        recipient_name="Me",
-        recipient_account="Mine"
-    )
+    # transaction = Transaction.objects.create(
+    #     sender=sender,
+    #     transaction_code=transaction_code,
+    #     amount=amount,
+    #     date=date_str,
+    #     recipient_name="Me",
+    #     recipient_account="Mine"
+    # )
     # transaction = Transaction.(transaction_code="transaction_code")
 
     # transaction = Transaction.objects.create(
