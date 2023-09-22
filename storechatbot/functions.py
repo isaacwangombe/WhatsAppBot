@@ -29,7 +29,7 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def parse_transaction_message(phoneId, fromId, text):
+def parse_transaction_message(fromId, text):
 
     # sender = Profiles.objects.get(phoneNumber=fromId)
 
@@ -73,7 +73,7 @@ def parse_transaction_message(phoneId, fromId, text):
     # transaction.save()
     # message = fromId
 
-    sendWhatsappMessage(fromId, fromId)
+    sendWhatsappMessage(fromId, str(fromId))
 
     # return transaction
 
