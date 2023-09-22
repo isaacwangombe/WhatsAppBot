@@ -97,14 +97,11 @@ class Transaction(models.Model):
     recipient_name = models.CharField(max_length=100, blank=True, null=True)
     recipient_account = models.CharField(max_length=200, blank=True, null=True)
 
-    # def save(self, *args, **kwargs):
-    #     if self.date_created is None:
-    #         self.date_created = timezone.localtime(timezone.now())
-    #     if self.uniqueId is None:
-    #         self.uniqueId = str(uuid4()).split('-')[4]
-
-    #     self.last_updated = timezone.localtime(timezone.now())
-    #     super(Transaction, self).save(*args, **kwargs)
+    # Utility Variable
+    uniqueId = models.CharField(
+        null=True, blank=True, unique=True, max_length=100)
+    date_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if self.date_created is None:
@@ -115,8 +112,8 @@ class Transaction(models.Model):
         self.last_updated = timezone.localtime(timezone.now())
         super(Transaction, self).save(*args, **kwargs)
 
-    # def __str__(self):
-    #     return f"Transaction{self.transaction_code}"
+    def __str__(self):
+        return f"Transaction{self.transaction_code}"
 
 
 class RenterPayment(models.Model):
