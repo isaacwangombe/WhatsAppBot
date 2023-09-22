@@ -58,10 +58,10 @@ def parse_transaction_message(fromId, text):
     # Assuming you have a Transaction model defined with appropriate fields
     Transaction.objects.create(
         transaction_code=transaction_code,
-        amount=amount,
-        date=date_str,
-        recipient_name="Me",
-        recipient_account="Mine"
+        # amount=amount,
+        # date=date_str,
+        # recipient_name="Me",
+        # recipient_account="Mine"
     )
     # transaction.save()
 
