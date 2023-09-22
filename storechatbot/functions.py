@@ -31,23 +31,23 @@ def AreYouDone(fromId):
 
 def parse_transaction_message(fromId, text):
 
-    transaction_code_regex = re.search(
-        r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
-    amount_regex = float(
-        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
-    date_regex = re.search(
-        r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
+    # transaction_code_regex = re.search(
+    #     r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
+    # amount_regex = float(
+    #     re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
+    # date_regex = re.search(
+    #     r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
 
-    # Your regular expression and parsing logic remains the same
-    if transaction_code_regex:
-        transaction_code = transaction_code_regex.group(1)
+    # # Your regular expression and parsing logic remains the same
+    # if transaction_code_regex:
+    #     transaction_code = transaction_code_regex.group(1)
 
-    else:
-        transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
+    # else:
+    #     transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
-    amount = amount_regex
+    # amount = amount_regex
 
-    date_str = date_regex.replace("/", "-")
+    # date_str = date_regex.replace("/", "-")
 
     # date_str = re.search(
     #     r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', text).group(1, 2)
@@ -70,7 +70,7 @@ def parse_transaction_message(fromId, text):
 
     # sendWhatsappMessage(fromId, date_str)
 
-    # return transaction
+    return transaction
 
 
 def createUsers(fromId, phoneId, text):
