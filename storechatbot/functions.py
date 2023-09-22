@@ -71,8 +71,9 @@ def parse_transaction_message(fromId, text):
     # transaction = Transaction.objects.create(
     #     transaction_code="transaction_code")
     # transaction.save()
+    message = fromId
 
-    sendWhatsappMessage(fromId, fromId)
+    sendWhatsappMessage(fromId, message)
 
     # return transaction
 
