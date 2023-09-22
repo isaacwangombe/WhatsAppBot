@@ -31,7 +31,7 @@ def AreYouDone(fromId):
 
 def parse_transaction_message(fromId, text):
 
-    # sender = Profiles.objects.get(phoneNumber=fromId)
+    sender = Profiles.objects.get(phoneNumber=str(fromId))
 
     transaction_code_regex = re.search(
         r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
@@ -73,7 +73,7 @@ def parse_transaction_message(fromId, text):
     # transaction.save()
     # message = fromId
 
-    sendWhatsappMessage(fromId, str(fromId))
+    sendWhatsappMessage(fromId, sender.first_name)
 
     # return transaction
 
