@@ -49,16 +49,16 @@ def parse_transaction_message(fromId, text):
 
     amount = amount_regex
 
-    date_str = date_regex.replace("/", "-")
-    date = datetime.strptime(date_str, "%d-%m-%Y").date()
+    date_str = date_regex.replace("/", "-").str()
+    # date = datetime.strptime(date_str, "%d-%m-%Y").date()
 
     # Assuming you have a Transaction model defined with appropriate fields
     transaction = Transaction.objects.create(
         sender=sender,
         transaction_code=transaction_code,
         amount=amount,
-        date=date,
-        # date=datetime.date.today(),
+        # date=date,
+        date=datetime.date.today(),
         recipient_name="Me",
         recipient_account="Mine"
     )
@@ -69,7 +69,7 @@ def parse_transaction_message(fromId, text):
     # transaction.save()
     # message = fromId
 
-    sendWhatsappMessage(fromId, date_str)
+    sendWhatsappMessage(fromId, type(date_str))
 
     # return transaction
 
