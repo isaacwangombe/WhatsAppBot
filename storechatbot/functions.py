@@ -56,7 +56,8 @@ def parse_transaction_message(fromId, text):
         sender=sender,
         transaction_code=transaction_code,
         amount=amount,
-        date=date_str,
+        # date=date_str,
+        date=datetime.date.today(),
         recipient_name="Me",
         recipient_account="Mine"
     )
