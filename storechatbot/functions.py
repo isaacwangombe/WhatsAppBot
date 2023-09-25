@@ -33,39 +33,33 @@ def parse_transaction_message(fromId, text):
 
     sender = Profiles.objects.get(phoneNumber=fromId)
 
-    # transaction_code_regex = re.search(
-    #     r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
-    # amount_regex = float(
-    #     re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
-    # date_regex = re.search(
-    #     r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
+    transaction_code_regex = re.search(
+        r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
+    amount_regex = float(
+        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
+    date_regex = re.search(
+        r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
 
-    # # Your regular expression and parsing logic remains the same
-    # if transaction_code_regex:
-    #     transaction_code = transaction_code_regex.group(1)
+    # Your regular expression and parsing logic remains the same
+    if transaction_code_regex:
+        transaction_code = transaction_code_regex.group(1)
 
-    # else:
-    #     transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
+    else:
+        transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
-    # amount = amount_regex
+    amount = amount_regex
 
-    # date_str = date_regex.replace("/", "-")
-
-    # date_str = re.search(
-    #     r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})[,\s]*(\d{1,2}:\d{2}[^\d\s]*)', text).group(1, 2)
-    # # date = datetime.strptime(' '.join(date_str), '%d-%m-%Y %H:%M')
-    # recipient_name = re.search(r'-\s*(.*?)\s*,', text).group(1)
-    # recipient_account = re.search(r'to\s*(\d+)', text).group(1)
+    date_str = date_regex.replace("/", "-")
 
     # Assuming you have a Transaction model defined with appropriate fields
-    # transaction = Transaction.objects.create(
-    #     sender=sender,
-    #     transaction_code=transaction_code,
-    #     amount=amount,
-    #     date=date_str,
-    #     recipient_name="Me",
-    #     recipient_account="Mine"
-    # )
+    transaction = Transaction.objects.create(
+        sender=sender,
+        transaction_code=transaction_code,
+        amount=amount,
+        date=date_str,
+        recipient_name="Me",
+        recipient_account="Mine"
+    )
     # transaction = Transaction.(transaction_code="transaction_code")
 
     # transaction = Transaction.objects.create(
@@ -73,7 +67,7 @@ def parse_transaction_message(fromId, text):
     # transaction.save()
     # message = fromId
 
-    sendWhatsappMessage(fromId, sender.first_name)
+    sendWhatsappMessage(fromId, "Created")
 
     # return transaction
 
