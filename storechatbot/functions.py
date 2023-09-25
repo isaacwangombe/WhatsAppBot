@@ -31,7 +31,7 @@ def AreYouDone(fromId):
 
 def parse_transaction_message(fromId, text):
 
-    sender = Profiles.objects.filter(phoneNumber=fromId).last()
+    sender = Profiles.objects.get(phoneNumber=fromId)
 
     # transaction_code_regex = re.search(
     #     r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
