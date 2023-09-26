@@ -49,7 +49,7 @@ def parse_transaction_message(fromId, text):
 
     amount = amount_regex
 
-    date_str = date_regex.replace("/", "-")
+    date_str = str(date_regex.replace("/", "-"))
     date = datetime.strptime(date_str, "%d-%m-%Y").date()
 
     # Assuming you have a Transaction model defined with appropriate fields
