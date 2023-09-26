@@ -78,8 +78,11 @@ def parse_transaction_message(fromId, text):
     )
     message = f"Thank you for uploading the transaction,\n Are these the right transaction details?\n\napartment = {sender.apartment.number} \ntenant = {sender.first_name}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}\n\n If yes, reply with Y\n if no, reply with N"
     sendWhatsappMessage(fromId, message)
+    if transaction:
+        renter_payment(fromId, text, transaction)
+    else:
+        sendWhatsappMessage(fromId, "Kindly reupload the message")
 
-    renter_payment(fromId, text, transaction)
     # return transaction
 
 
