@@ -49,6 +49,8 @@ def whatsappWebhook(request):
                         # handleWhatsappChat(fromId, profileName, phoneId, text)
                         # createUsers(fromId, phoneId, text)
                         parse_transaction_message(fromId, text)
+                        renter_payment(fromId, text)
+
                 except:
                     pass
 
