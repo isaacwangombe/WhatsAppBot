@@ -29,6 +29,10 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
+def renter_payment(transaction):
+    test = ""
+
+
 def parse_transaction_message(fromId, text):
 
     sender = Profiles.objects.get(phoneNumber=fromId)
@@ -60,28 +64,16 @@ def parse_transaction_message(fromId, text):
     else:
         date = datetime.strptime(date_str, "%d-%m-%Y")
 
-    # Your regular expression and parsing logic remains the same
-
-    # date = datetime.strptime(date_str, "%d-%m-%Y").date()
-
-    # Assuming you have a Transaction model defined with appropriate fields
     transaction = Transaction.objects.create(
         sender=sender,
         transaction_code=transaction_code,
         amount=amount,
         date=date,
-        # date=datetime.date.today(),
         recipient_name="Me",
         recipient_account="Mine"
     )
-    # transaction = Transaction.(transaction_code="transaction_code")
-
-    # transaction = Transaction.objects.create(
-    #     transaction_code="transaction_code")
-    # transaction.save()
-    # message = fromId
-
-    sendWhatsappMessage(fromId, year)
+    message = "Thank you for uploading the transaction,\n Are these the right transaction details?\n\n f'tenant = {sender}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}'\n\n If yes, reply with Y\n if no, reply with N"
+    sendWhatsappMessage(fromId, message)
 
     # return transaction
 
