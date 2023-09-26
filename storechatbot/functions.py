@@ -70,7 +70,7 @@ def parse_transaction_message(fromId, text):
         transaction_code=transaction_code,
         amount=amount,
         date=date,
-        date=datetime.date.today(),
+        # date=datetime.date.today(),
         recipient_name="Me",
         recipient_account="Mine"
     )
