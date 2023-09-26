@@ -33,23 +33,35 @@ def parse_transaction_message(fromId, text):
 
     sender = Profiles.objects.get(phoneNumber=fromId)
 
+    # Getting Transaction code
     transaction_code_regex = re.search(
         r'(?:Ref\. Number|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
-    amount_regex = float(
-        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
-    date_regex = re.search(
-        r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
 
-    # Your regular expression and parsing logic remains the same
     if transaction_code_regex:
         transaction_code = transaction_code_regex.group(1)
 
     else:
         transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
+    # Getting amount
+    amount_regex = float(
+        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
+
     amount = amount_regex
 
+    # Getting Date
+    date_regex = re.search(
+        r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
+
     date_str = str(date_regex.replace("/", "-"))
+    year = date_str.split("-")[-1]
+    if len(year) == 2:
+        date = datetime.strptime(date_str, "%d-%m-%y")
+    else:
+        date = datetime.strptime(date_str, "%d-%m-%Y")
+
+    # Your regular expression and parsing logic remains the same
+
     # date = datetime.strptime(date_str, "%d-%m-%Y").date()
 
     # Assuming you have a Transaction model defined with appropriate fields
@@ -57,7 +69,7 @@ def parse_transaction_message(fromId, text):
         sender=sender,
         transaction_code=transaction_code,
         amount=amount,
-        # date=date,
+        date=date,
         date=datetime.date.today(),
         recipient_name="Me",
         recipient_account="Mine"
