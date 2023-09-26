@@ -29,8 +29,11 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def renter_payment(transaction):
-    test = ""
+def renter_payment(fromId, text, transaction):
+    if text == "y":
+        sendWhatsappMessage(fromId, "works")
+    else:
+        sendWhatsappMessage(fromId, "still?")
 
 
 def parse_transaction_message(fromId, text):
@@ -76,6 +79,7 @@ def parse_transaction_message(fromId, text):
     message = f"Thank you for uploading the transaction,\n Are these the right transaction details?\n\napartment = {sender.apartment.number} \ntenant = {sender.first_name}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}\n\n If yes, reply with Y\n if no, reply with N"
     sendWhatsappMessage(fromId, message)
 
+    renter_payment(fromId, text, transaction)
     # return transaction
 
 
