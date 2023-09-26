@@ -72,7 +72,7 @@ def parse_transaction_message(fromId, text):
         recipient_name="Me",
         recipient_account="Mine"
     )
-    message = "Thank you for uploading the transaction,\n Are these the right transaction details?\n\n f'tenant = {sender}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}'\n\n If yes, reply with Y\n if no, reply with N"
+    message = f"Thank you for uploading the transaction,\n Are these the right transaction details?\n\n tenant = {sender}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}\n\n If yes, reply with Y\n if no, reply with N"
     sendWhatsappMessage(fromId, message)
 
     # return transaction
