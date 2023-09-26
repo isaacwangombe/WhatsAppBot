@@ -53,7 +53,7 @@ def parse_transaction_message(fromId, text):
     date_regex = re.search(
         r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
 
-    date_str = str(date_regex.replace("/", "-"))
+    date_str = date_regex.replace("/", "-")
     year = date_str.split("-")[-1]
     if len(year) == 2:
         date = datetime.strptime(date_str, "%d-%m-%y")
@@ -81,7 +81,7 @@ def parse_transaction_message(fromId, text):
     # transaction.save()
     # message = fromId
 
-    sendWhatsappMessage(fromId, "type(date_str)")
+    sendWhatsappMessage(fromId, year)
 
     # return transaction
 
