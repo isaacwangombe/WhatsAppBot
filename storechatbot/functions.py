@@ -35,7 +35,7 @@ def parse_transaction_message(fromId, text):
 
     # Getting Transaction code
     transaction_code_regex = re.search(
-        r'(?:Ref. Number|Ref. Number:|Transaction ID|Ref.|Ref) ([A-Z0-9]+)', text)
+        r'(?:Ref. Number|Ref. Number:|Transaction ID|MPESA Ref.|Ref.|Ref) ([A-Z0-9]+)', text)
 
     if transaction_code_regex:
         transaction_code = transaction_code_regex.group(1)
