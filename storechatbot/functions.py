@@ -36,7 +36,7 @@ def renter_payment(fromId, text,  transaction):
         sendWhatsappMessage(fromId, transaction.amount)
 
 
-def parse_transaction_message(fromId, text, transaction):
+def parse_transaction_message(fromId, text):
 
     sender = Profiles.objects.get(phoneNumber=fromId)
     # apartment = sender__apartment
@@ -78,7 +78,6 @@ def parse_transaction_message(fromId, text, transaction):
     )
     message = f"Thank you for uploading the transaction,\n Are these the right transaction details?\n\napartment = {sender.apartment.number} \ntenant = {sender.first_name}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}\n\n If yes, reply with Y\n if no, reply with N"
     sendWhatsappMessage(fromId, message)
-    return transaction
 
     # sendWhatsappMessage(fromId, "Kindly reupload the message")
 
@@ -214,7 +213,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # message = text
         # sendWhatsappMessage(fromId, message)
         parse_transaction_message(fromId, text)
-        renter_payment(fromId, text)
+
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
     #         parse_transaction_message(message)
