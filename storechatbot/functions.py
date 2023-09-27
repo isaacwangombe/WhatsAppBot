@@ -30,7 +30,6 @@ def AreYouDone(fromId):
 
 
 def verifyTransaction(fromId, text):
-    renter = Profiles.objects.get(phoneNumber=fromId)
     transaction = Transaction.objects.filter(sender__phoneNumber=fromId).last()
     if text.upper() == "Y":
         apartment = Profiles.objects.filter(
