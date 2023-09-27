@@ -36,7 +36,7 @@ def renter_payment(fromId, text):
         sendWhatsappMessage(fromId, "still?")
 
 
-def parse_transaction_message(fromId, text, transaction):
+def parse_transaction_message(fromId, text):
     # if transaction != None:
     #     renter_payment(fromId, text)
     # else:
