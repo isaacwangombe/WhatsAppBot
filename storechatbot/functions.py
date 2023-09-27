@@ -37,8 +37,7 @@ def verifyTransaction(fromId, text):
         # new_balance = apartment.balance - transaction.amount
 
         # apartment.objects.update(balance=new_balance)
-        sendWhatsappMessage(
-            fromId, "Transaction successfully saved"+transaction)
+        sendWhatsappMessage(fromId, transaction)
     elif text.upper() == "N":
         transaction.delete()
         sendWhatsappMessage(fromId, "Your upload has been deleted")
