@@ -153,25 +153,25 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     except ObjectDoesNotExist:
         # Check that user does not already exist
-        if User.objects.filter(username=phoneId).exists():
-            user = User.objects.get(username=phoneId)
-            user_profiles = user.profiles
+        # if User.objects.filter(username=phoneId).exists():
+        user = User.objects.get(username=phoneId)
+        user_profiles = user.profiles
 
-        else:
-            # create a user
-            user = User.objects.create_user(
-                username=phoneId,
-                email='test@test.com',
-                password='password',
-                first_name=profileName,
-            )
+        # else:
+        #     # create a user
+        #     user = User.objects.create_user(
+        #         username=phoneId,
+        #         email='test@test.com',
+        #         password='password',
+        #         first_name=profileName,
+        #     )
 
-            # create a profile
-            user_profiles = Profiles.objects.create(
-                creator=user,
-                phoneNumber=fromId,
-                phoneId=phoneId
-            )
+        #     # create a profile
+        #     user_profiles = Profiles.objects.create(
+        #         creator=user,
+        #         phoneNumber=fromId,
+        #         phoneId=phoneId
+        #     )
 
         # create a chat session
         chat = ChatSession.objects.create(profile=user_profiles)
