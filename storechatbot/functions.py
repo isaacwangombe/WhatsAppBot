@@ -29,7 +29,7 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def renter_payment(fromId, text,  transaction):
+def renter_payment(fromId, text):
     if text == "y":
         sendWhatsappMessage(fromId, "transaction.amount")
     else:
@@ -197,5 +197,5 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.question_no = chat.question_no + 1
                 chat.save()
             case 2:
-                # renter_payment(fromId, text)
-                sendWhatsappMessage(fromId, "chat.question_no")
+                renter_payment(fromId, text)
+                # sendWhatsappMessage(fromId, "chat.question_no")
