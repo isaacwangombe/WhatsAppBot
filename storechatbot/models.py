@@ -105,8 +105,7 @@ class Transaction(models.Model):
     sender = models.ForeignKey(
         Profiles, on_delete=models.CASCADE, blank=True, null=True)
     transaction_code = models.CharField(max_length=100, blank=True, null=True)
-    amount = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=True, null=True)
+    amount = models.IntegerField(blank=True, null=True)
     date = models.DateField(blank=True, null=True)
     recipient_name = models.CharField(max_length=100, blank=True, null=True)
     recipient_account = models.CharField(max_length=200, blank=True, null=True)
