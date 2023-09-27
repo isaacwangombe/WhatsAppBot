@@ -32,11 +32,11 @@ def AreYouDone(fromId):
 def verifyTransaction(fromId, text):
     transaction = Transaction.objects.filter(sender__phoneNumber=fromId).last()
     if text.upper() == "Y":
-        apartment = Profiles.objects.filter(
-            sender__phoneNumber=fromId).last().apartment
-        new_balance = apartment.balance - transaction.amount
+        # apartment = Profiles.objects.filter(
+        #     sender__phoneNumber=fromId).last().apartment
+        # new_balance = apartment.balance - transaction.amount
 
-        apartment.objects.update(balance=new_balance)
+        # apartment.objects.update(balance=new_balance)
         sendWhatsappMessage(fromId, "transaction.amount")
     elif text.upper() == "N":
         transaction.delete()
