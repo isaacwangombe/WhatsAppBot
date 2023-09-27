@@ -30,10 +30,15 @@ def AreYouDone(fromId):
 
 
 def renter_payment(fromId, text):
-    if text == "y":
+    transaction = Transaction.objects.get(sender__phoneNumber=fromId).last()
+    if text.upper() == "Y":
         sendWhatsappMessage(fromId, "transaction.amount")
+    elif text.upper() == "N":
+        sendWhatsappMessage(fromId, "transaction")
+
     else:
-        sendWhatsappMessage(fromId, "transaction.amounts")
+        sendWhatsappMessage(
+            fromId, 'Kindly either send a "Y" or "N" to complete the interaction')
 
 
 def parse_transaction_message(fromId, text):

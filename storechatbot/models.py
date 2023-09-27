@@ -62,8 +62,8 @@ class RepairRequest(models.Model):
         ('Pending', 'Pending'),
         ('Closed', 'Closed'),
     ]
-    apartment = models.ForeignKey(
-        Apartment, on_delete=models.CASCADE, null=True, blank=True)
+    renter = models.ForeignKey(
+        Profiles, on_delete=models.CASCADE, null=True, blank=True)
     transaction_code = models.CharField(max_length=500, null=True, blank=True)
     status = models.CharField(
         choices=StatusOptions, max_length=100, null=True, blank=True)
@@ -119,7 +119,8 @@ class Transaction(models.Model):
 
 
 class RenterPayment(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    renter = models.ForeignKey(
+        Profiles, on_delete=models.CASCADE, blank=True, null=True)
     balance = models.DecimalField(max_digits=10, decimal_places=2)
     last_payment = models.DateTimeField(null=True, blank=True)
     total_payment = models.DecimalField(max_digits=10, decimal_places=2)
