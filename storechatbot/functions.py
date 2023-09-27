@@ -194,7 +194,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         match chat.question_no:
             case 1:
                 parse_transaction_message(fromId, text)
-                chat.question_no = chat.question_no+1
+                chat.question_no = chat.question_no + 1
                 chat.save()
             case 2:
-                renter_payment(fromId, text)
+                # renter_payment(fromId, text)
+                sendWhatsappMessage(fromId, "chat.question_no")
