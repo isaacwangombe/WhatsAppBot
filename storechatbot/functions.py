@@ -33,7 +33,7 @@ def renter_payment(fromId, text,  transaction):
     if text == "y":
         sendWhatsappMessage(fromId, "transaction.amount")
     else:
-        sendWhatsappMessage(fromId, transaction.amount)
+        sendWhatsappMessage(fromId, "transaction.amounts")
 
 
 def parse_transaction_message(fromId, text):
@@ -190,7 +190,11 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             case _:
                 message = 'invalid'
                 sendWhatsappMessage(fromId, message)
-    elif chat.chat_purpose == 'receipt' and chat.question_no == 1:
-        # message = text
-        # sendWhatsappMessage(fromId, message)
-        parse_transaction_message(fromId, text)
+    elif chat.chat_purpose == 'receipt':
+        match chat.question_no:
+            case 1:
+                parse_transaction_message(fromId, text)
+                chat.question_no = chat.question_no+1
+                chat.save()
+            case 2:
+                renter_payment(fromId, text)
