@@ -31,15 +31,15 @@ def AreYouDone(fromId):
 
 def verifyTransaction(fromId, text):
     if text.upper() == "Y":
-        transaction = Transaction.objects.get(
-            sender__phoneNumber=fromId)
+        transaction = Transaction.objects.filter(
+            sender__phoneNumber=fromId).last()
 
         apartment = Profiles.objects.filter(
             phoneNumber=fromId).last().apartment
         # new_balance = apartment.balance - transaction.amount
 
         # apartment.objects.update(balance=new_balance)
-        sendWhatsappMessage(fromId, transaction.amount)
+        sendWhatsappMessage(fromId, transaction.transaction_code)
     elif text.upper() == "N":
         transaction.delete()
         sendWhatsappMessage(fromId, "Your upload has been deleted")
