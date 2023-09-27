@@ -31,7 +31,7 @@ def AreYouDone(fromId):
 
 def verifyTransaction(fromId, text):
     transaction = Transaction.objects.filter(sender__phoneNumber=fromId).last()
-    if text.upper() == "Y":
+    if text == "Y":
         # apartment = Profiles.objects.filter(
         #     sender__phoneNumber=fromId).last().apartment
         # new_balance = apartment.balance - transaction.amount
