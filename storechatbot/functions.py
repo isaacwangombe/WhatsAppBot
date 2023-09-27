@@ -45,7 +45,7 @@ def verifyTransaction(fromId, text):
         chat.save()
         sendWhatsappMessage(fromId, apartment.balance)
     elif text.upper() == "N":
-        transaction.delete()
+        # transaction.delete()
         sendWhatsappMessage(
             fromId, "Your upload has been deleted,\n Would you like to reupload it, go back to main menu or Exit \n\n 1) Reupload it \n 2) Main Menu) \n 3) Exit")
         match text:
