@@ -29,14 +29,19 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def renter_payment(fromId, text):
+def verifyTransaction(fromId, text):
     renter = Profiles.objects.get(phoneNumber=fromId)
     transaction = Transaction.objects.filter(sender__phoneNumber=fromId).last()
     if text.upper() == "Y":
+        apartment = Profiles.objects.filter(
+            sender__phoneNumber=fromId).last().apartment
+        new_balance = apartment.balance - transaction.amount
 
+        apartment.objects.update(balance=new_balance)
         sendWhatsappMessage(fromId, "transaction.amount")
     elif text.upper() == "N":
-        sendWhatsappMessage(fromId, "transaction")
+        transaction.delete()
+        sendWhatsappMessage(fromId, "Your upload has been deleted")
 
     else:
         sendWhatsappMessage(
