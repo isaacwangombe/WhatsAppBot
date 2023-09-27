@@ -29,62 +29,58 @@ def AreYouDone(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def renter_payment(fromId, text):
+def renter_payment(fromId, text,  transaction):
     if text == "y":
         sendWhatsappMessage(fromId, "transaction.amount")
     else:
-        sendWhatsappMessage(fromId, "still?")
+        sendWhatsappMessage(fromId, transaction.amount)
 
 
-def parse_transaction_message(fromId, text):
-    if transaction:
-        renter_payment(fromId, text)
+def parse_transaction_message(fromId, text, transaction):
+
+    sender = Profiles.objects.get(phoneNumber=fromId)
+    # apartment = sender__apartment
+
+    # Getting Transaction code
+    transaction_code_regex = re.search(
+        r'(?:Ref. Number|Ref. Number:|Transaction ID|MPESA Ref.|Ref.|Ref) ([A-Z0-9]+)', text)
+
+    if transaction_code_regex:
+        transaction_code = transaction_code_regex.group(1)
+
     else:
+        transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
 
-        sender = Profiles.objects.get(phoneNumber=fromId)
-        # apartment = sender__apartment
+    # Getting amount
+    amount_regex = float(
+        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
 
-        # Getting Transaction code
-        transaction_code_regex = re.search(
-            r'(?:Ref. Number|Ref. Number:|Transaction ID|MPESA Ref.|Ref.|Ref) ([A-Z0-9]+)', text)
+    amount = amount_regex
 
-        if transaction_code_regex:
-            transaction_code = transaction_code_regex.group(1)
+    # Getting Date
+    date_regex = re.search(
+        r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
 
-        else:
-            transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
+    date_str = date_regex.replace("/", "-")
+    year = date_str.split("-")[-1]
+    if len(year) == 2:
+        date = datetime.strptime(date_str, "%d-%m-%y").date()
+    else:
+        date = datetime.strptime(date_str, "%d-%m-%Y").date()
 
-        # Getting amount
-        amount_regex = float(
-            re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
+    transaction = Transaction.objects.create(
+        sender=sender,
+        transaction_code=transaction_code,
+        amount=amount,
+        date=date,
+        recipient_name="Me",
+        recipient_account="Mine"
+    )
+    message = f"Thank you for uploading the transaction,\n Are these the right transaction details?\n\napartment = {sender.apartment.number} \ntenant = {sender.first_name}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}\n\n If yes, reply with Y\n if no, reply with N"
+    sendWhatsappMessage(fromId, message)
+    return transaction
 
-        amount = amount_regex
-
-        # Getting Date
-        date_regex = re.search(
-            r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
-
-        date_str = date_regex.replace("/", "-")
-        year = date_str.split("-")[-1]
-        if len(year) == 2:
-            date = datetime.strptime(date_str, "%d-%m-%y").date()
-        else:
-            date = datetime.strptime(date_str, "%d-%m-%Y").date()
-
-        transaction = Transaction.objects.create(
-            sender=sender,
-            transaction_code=transaction_code,
-            amount=amount,
-            date=date,
-            recipient_name="Me",
-            recipient_account="Mine"
-        )
-        message = f"Thank you for uploading the transaction,\n Are these the right transaction details?\n\napartment = {sender.apartment.number} \ntenant = {sender.first_name}\n transaction code = {transaction_code}\n amount = {amount} \n date = {date}\n\n If yes, reply with Y\n if no, reply with N"
-        sendWhatsappMessage(fromId, message)
-        parse_transaction_message(fromId, text)
-        return transaction
-
-        # sendWhatsappMessage(fromId, "Kindly reupload the message")
+    # sendWhatsappMessage(fromId, "Kindly reupload the message")
 
 
 def createUsers(fromId, phoneId, text):
@@ -218,7 +214,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         # message = text
         # sendWhatsappMessage(fromId, message)
         parse_transaction_message(fromId, text)
-
+        renter_payment(fromId, text)
     # if chat.chat_purpose:
     #     if chat.chat_purpose == '1':
     #         parse_transaction_message(message)
