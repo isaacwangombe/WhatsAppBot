@@ -33,7 +33,7 @@ def verifyTransaction(fromId, text):
     transaction = Transaction.objects.filter(sender__phoneNumber=fromId).last()
     if text.upper() == "Y":
         apartment = Profiles.objects.filter(
-            sender__phoneNumber=fromId).last().apartment
+            phoneNumber=fromId).last().apartment
         # new_balance = apartment.balance - transaction.amount
 
         # apartment.objects.update(balance=new_balance)
