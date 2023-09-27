@@ -37,7 +37,7 @@ def renter_payment(fromId, text):
 
 
 def parse_transaction_message(fromId, text):
-    if transaction != None:
+    if transaction:
         renter_payment(fromId, text)
     else:
 
