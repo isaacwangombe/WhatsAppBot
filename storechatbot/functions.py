@@ -31,8 +31,8 @@ def AreYouDone(fromId):
 
 def verifyTransaction(fromId, text):
     if text.upper() == "Y":
-        transaction = Transaction.objects.filter(
-            sender__phoneNumber=fromId).last()
+        transaction = Transaction.objects.get(
+            sender__phoneNumber=fromId)
 
         apartment = Profiles.objects.filter(
             phoneNumber=fromId).last().apartment
