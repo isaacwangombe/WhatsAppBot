@@ -30,6 +30,7 @@ def AreYouDone(fromId):
 
 
 def verifyTransaction(fromId, text):
+    chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     transaction = Transaction.objects.filter(
         sender__phoneNumber=fromId).last()
     if text.upper() == "Y":
@@ -40,11 +41,18 @@ def verifyTransaction(fromId, text):
 
         apartment.balance = int(new_balance)
         apartment.save()
+        chat.question_no = chat.question_no + 1
+        chat.save()
         sendWhatsappMessage(fromId, apartment.balance)
     elif text.upper() == "N":
         transaction.delete()
-        sendWhatsappMessage(fromId, "Your upload has been deleted")
-
+        sendWhatsappMessage(
+            fromId, "Your upload has been deleted,\n Would you like to reupload it, go back to main menu or Exit \n\n 1) Reupload it \n 2) Main Menu) \n 3) Exit")
+        match text:
+            case "1":
+                sendWhatsappMessage(fromId, '1')
+            case "2":
+                sendWhatsappMessage(fromId, '2')
     else:
         sendWhatsappMessage(
             fromId, 'Kindly either send a "Y" or "N" to complete the interaction')
