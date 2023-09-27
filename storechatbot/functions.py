@@ -151,11 +151,11 @@ def RepairRequest(fromId):
 def handleWhatsappChat(fromId, profileName, phoneId, text):
     try:
         chat = ChatSession.objects.get(profile__phoneNumber=fromId)
-    except ObjectDoesNotExist:
+    except:
         # Check that user does not already exist
         # if User.objects.filter(username=phoneId).exists():
-        user = User.objects.get(username=phoneId)
-        user_profiles = user.profiles
+        # user = User.objects.get(username=phoneId)
+        profile = Profiles.objects.get(phoneNumber=fromId)
 
         # else:
         #     # create a user
@@ -174,7 +174,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
         #     )
 
         # create a chat session
-        chat = ChatSession.objects.create(profile=user_profiles)
+        chat = ChatSession.objects.create(profile=profile)
         message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
         sendWhatsappMessage(fromId, message)
         return
