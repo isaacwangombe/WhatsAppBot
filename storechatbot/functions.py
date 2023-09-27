@@ -24,9 +24,17 @@ def sendWhatsappMessage(fromId, message):
     return ans
 
 
-def AreYouDone(fromId):
+def AreYouDone(fromId, text):
     message = 'Thank You for renting with us!\n\n If you want to perform another task Kindly type MENU to return to main Menu \n\n Otherwise, have an amazing day'
     sendWhatsappMessage(fromId, message)
+
+
+def afterDeleteTransaction(fromId, text):
+    match text:
+        case "1":
+            sendWhatsappMessage(fromId, '1')
+        case "2":
+            sendWhatsappMessage(fromId, '2')
 
 
 def verifyTransaction(fromId, text):
@@ -46,13 +54,11 @@ def verifyTransaction(fromId, text):
         sendWhatsappMessage(fromId, apartment.balance)
     elif text.upper() == "N":
         # transaction.delete()
+        chat.question_no = chat.question_no + 2
+        chat.save()
         sendWhatsappMessage(
             fromId, "Your upload has been deleted,\n Would you like to reupload it, go back to main menu or Exit \n\n 1) Reupload it \n 2) Main Menu) \n 3) Exit")
-        match text:
-            case "1":
-                sendWhatsappMessage(fromId, '1')
-            case "2":
-                sendWhatsappMessage(fromId, '2')
+
     else:
         sendWhatsappMessage(
             fromId, 'Kindly either send a "Y" or "N" to complete the interaction')
@@ -166,7 +172,7 @@ def PaymentDetails(fromId):
     sendWhatsappMessage(fromId, message)
 
 
-def RepairRequest(fromId):
+def Repair(fromId):
     message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Structural issues (e.g. broken window, door issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
     sendWhatsappMessage(fromId, message)
 
@@ -221,4 +227,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.save()
             case 2:
                 verifyTransaction(fromId, text)
+            case 3:
+                AreYouDone(fromId, text)
+            case 4:
+                afterDeleteTransaction(fromId, text)
                 # sendWhatsappMessage(fromId, "chat.question_no")
