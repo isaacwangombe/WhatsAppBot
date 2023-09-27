@@ -7,7 +7,7 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 import re
 from .aifile import *
-from .models import ChatSession, Transaction, Profiles
+from .models import *
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -30,8 +30,10 @@ def AreYouDone(fromId):
 
 
 def renter_payment(fromId, text):
-    transaction = Transaction.objects.get(sender__phoneNumber=fromId).last()
+    renter = Profiles.objects.get(phoneNumber=fromId)
+    transaction = Transaction.objects.filter(sender__phoneNumber=fromId).last()
     if text.upper() == "Y":
+
         sendWhatsappMessage(fromId, "transaction.amount")
     elif text.upper() == "N":
         sendWhatsappMessage(fromId, "transaction")
@@ -74,6 +76,7 @@ def parse_transaction_message(fromId, text):
         date = datetime.strptime(date_str, "%d-%m-%Y").date()
 
     transaction = Transaction.objects.create(
+        message=text,
         sender=sender,
         transaction_code=transaction_code,
         amount=amount,

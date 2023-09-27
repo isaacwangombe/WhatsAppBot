@@ -8,7 +8,17 @@ import os
 
 
 class Apartment(models.Model):
+    StatusOptions = [
+        ('Paid', 'Paid'),
+        ('Pending', 'Pending'),
+        ('Overdue', 'Overdue'),
+        ('VeryLate', 'VeryLate'),
+    ]
     number = models.CharField(max_length=10, blank=True, null=True)
+    balance = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    payment_status = models.CharField(
+        choices=StatusOptions, max_length=100, null=True, blank=True)
     occupied = models.BooleanField(default=False, blank=True, null=True)
     monthly_rent = models.IntegerField(blank=True, null=True)
     payment_date = models.DateTimeField(blank=True, null=True)
@@ -39,6 +49,7 @@ class Profiles(models.Model):
     phoneId = models.CharField(max_length=200, null=True, blank=True)
     role = models.CharField(
         choices=RoleOptions, max_length=100, null=True, blank=True)
+    payment_regularity = models.IntegerField(null=True, blank=True)
 
     # Utility Variable
     uniqueId = models.CharField(
@@ -90,6 +101,7 @@ class RepairRequest(models.Model):
 
 
 class Transaction(models.Model):
+    message = models.CharField(max_length=500, blank=True, null=True)
     sender = models.ForeignKey(
         Profiles, on_delete=models.CASCADE, blank=True, null=True)
     transaction_code = models.CharField(max_length=100, blank=True, null=True)
@@ -116,36 +128,6 @@ class Transaction(models.Model):
 
     def __str__(self):
         return self.transaction_code
-
-
-class RenterPayment(models.Model):
-    renter = models.ForeignKey(
-        Profiles, on_delete=models.CASCADE, blank=True, null=True)
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
-    last_payment = models.DateTimeField(null=True, blank=True)
-    total_payment = models.DecimalField(max_digits=10, decimal_places=2)
-    transaction = models.ForeignKey(
-        Transaction, on_delete=models.CASCADE, null=True, blank=True)
-    payment_regularity = models.CharField(max_length=50)
-    # Other fields for payment information
-
-    # Utility Variable
-    uniqueId = models.CharField(
-        null=True, blank=True, unique=True, max_length=100)
-    date_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        if self.date_created is None:
-            self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueId is None:
-            self.uniqueId = str(uuid4()).split('-')[4]
-
-        self.last_updated = timezone.localtime(timezone.now())
-        super(RenterPayment, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Payment for {self.renter}"
 
 
 class ChatSession(models.Model):
