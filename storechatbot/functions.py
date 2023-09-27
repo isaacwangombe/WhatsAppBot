@@ -37,40 +37,40 @@ def renter_payment(fromId, text):
 
 
 def parse_transaction_message(fromId, text):
-
-    sender = Profiles.objects.get(phoneNumber=fromId)
-    # apartment = sender__apartment
-
-    # Getting Transaction code
-    transaction_code_regex = re.search(
-        r'(?:Ref. Number|Ref. Number:|Transaction ID|MPESA Ref.|Ref.|Ref) ([A-Z0-9]+)', text)
-
-    if transaction_code_regex:
-        transaction_code = transaction_code_regex.group(1)
-
-    else:
-        transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
-
-    # Getting amount
-    amount_regex = float(
-        re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
-
-    amount = amount_regex
-
-    # Getting Date
-    date_regex = re.search(
-        r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
-
-    date_str = date_regex.replace("/", "-")
-    year = date_str.split("-")[-1]
-    if len(year) == 2:
-        date = datetime.strptime(date_str, "%d-%m-%y").date()
-    else:
-        date = datetime.strptime(date_str, "%d-%m-%Y").date()
-
     if transaction:
         renter_payment(fromId, text)
     else:
+
+        sender = Profiles.objects.get(phoneNumber=fromId)
+        # apartment = sender__apartment
+
+        # Getting Transaction code
+        transaction_code_regex = re.search(
+            r'(?:Ref. Number|Ref. Number:|Transaction ID|MPESA Ref.|Ref.|Ref) ([A-Z0-9]+)', text)
+
+        if transaction_code_regex:
+            transaction_code = transaction_code_regex.group(1)
+
+        else:
+            transaction_code = re.search(r'(\b[0-9A-Z]+\b)', text).group()
+
+        # Getting amount
+        amount_regex = float(
+            re.search(r'(?i)(?:KES|Kshs?\.?)\s?([0-9,]+(?:\.\d{1,2})?)', text).group(1).replace(',', ''))
+
+        amount = amount_regex
+
+        # Getting Date
+        date_regex = re.search(
+            r'(\b\d{1,2}[ /-]\d{1,2}[ /-]\d{2,4}\b)', text).group(1)
+
+        date_str = date_regex.replace("/", "-")
+        year = date_str.split("-")[-1]
+        if len(year) == 2:
+            date = datetime.strptime(date_str, "%d-%m-%y").date()
+        else:
+            date = datetime.strptime(date_str, "%d-%m-%Y").date()
+
         transaction = Transaction.objects.create(
             sender=sender,
             transaction_code=transaction_code,
