@@ -34,10 +34,10 @@ def verifyTransaction(fromId, text):
     if text.upper() == "Y":
         apartment = Profiles.objects.filter(
             phoneNumber=fromId).last().apartment
-        # new_balance = apartment.balance - transaction.amount
+        new_balance = apartment.balance - transaction.amount
 
-        # apartment.objects.update(balance=new_balance)
-        sendWhatsappMessage(fromId, apartment.number)
+        apartment.objects.update(balance=new_balance)
+        sendWhatsappMessage(fromId, "Transaction successfully saved")
     elif text.upper() == "N":
         transaction.delete()
         sendWhatsappMessage(fromId, "Your upload has been deleted")
