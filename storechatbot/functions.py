@@ -38,7 +38,7 @@ def verifyTransaction(fromId, text):
             phoneNumber=fromId).last().apartment
         new_balance = apartment.balance - transaction.amount
 
-        apartment.balance = new_balance
+        apartment.balance = int(new_balance)
         apartment.save()
         sendWhatsappMessage(fromId, apartment.balance)
     elif text.upper() == "N":
