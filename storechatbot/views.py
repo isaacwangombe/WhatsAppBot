@@ -46,10 +46,10 @@ def whatsappWebhook(request):
                         # message = 'RE: {} test was received'.format(text)
                         # sendWhatsappMessage(fromId, message)
 
-                        # handleWhatsappChat(fromId, profileName, phoneId, text)
+                        handleWhatsappChat(fromId, profileName, phoneId, text)
                         # createUsers(fromId, phoneId, text)
-                        parse_transaction_message(fromId, text)
-                        renter_payment(fromId, text)
+                        # parse_transaction_message(fromId, text)
+                        # renter_payment(fromId, text)
 
                 except:
                     pass
