@@ -210,7 +210,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
                 chat.save()
-                RepairRequest(fromId)
+                Repair(fromId, text)
             case "4":
                 chat.chat_purpose = 'create'
                 chat.question_no = chat.question_no+1
@@ -246,9 +246,9 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.question_no = chat.question_no + 1
                 chat.save()
 
-    elif chat.chat_purpose == 'complaint':
-        match chat.question_no:
-            case 1:
-                Repair(fromId, text)
-                chat.question_no = chat.question_no + 1
-                chat.save()
+    # elif chat.chat_purpose == 'complaint':
+    #     match chat.question_no:
+    #         case 1:
+    #             Repair(fromId, text)
+    #             chat.question_no = chat.question_no + 1
+    #             chat.save()
