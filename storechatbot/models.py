@@ -75,10 +75,11 @@ class RepairRequest(models.Model):
     ]
     renter = models.ForeignKey(
         Profiles, on_delete=models.CASCADE, null=True, blank=True)
-    transaction_code = models.CharField(max_length=500, null=True, blank=True)
+    type = models.CharField(max_length=100, null=True, blank=True)
+    description = models.CharField(max_length=500, null=True, blank=True)
     status = models.CharField(
         choices=StatusOptions, max_length=100, null=True, blank=True)
-    repairCost = models.IntegerField(blank=True, null=True)
+    repair_cost = models.IntegerField(blank=True, null=True)
     # Other fields for repair request information
 
     # Utility Variable
@@ -134,6 +135,7 @@ class ChatSession(models.Model):
         ('payment', 'payment'),
         ('receipt', 'receipt'),
         ('complaint', 'complaint'),
+        ('create', 'create'),
     ]
 
     chat_purpose = models.CharField(
