@@ -171,20 +171,35 @@ def Repair(fromId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
     renter = Profiles.objects.get(phoneNumber=fromId)
+    request = RepairRequest.objects.create(
+        renter=renter)
     match question:
         case 1:
             match text:
                 case "1":
-                    request = RepairRequest.objects.create(
-                        renter=renter, type="1")
-                    chat.question_no = chat.question_no + 1
-                    chat.save()
-                case "2":
-                    request = RepairRequest.objects.create(
-                        renter=renter, type="2")
+                    request.type = "1"
 
-                    sendWhatsappMessage(fromId, text)
+                case "2":
+                    request.type = "2"
+                case "3":
+                    request = RepairRequest.objects.create(
+                        renter=renter, type="3")
+                case "4":
+                    request = RepairRequest.objects.create(
+                        renter=renter, type="4")
+                case "5":
+                    request = RepairRequest.objects.create(
+                        renter=renter, type="5")
+                case "6":
+                    request = RepairRequest.objects.create(
+                        renter=renter, type="6")
+            chat.question_no = chat.question_no + 1
+            chat.save()
+            message = "Kindly describe the issue"
+            sendWhatsappMessage(fromId, message)
         case 2:
+            request.description = text
+            request.save()
             sendWhatsappMessage(fromId, "Why?")
 
 
@@ -217,7 +232,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
                 chat.save()
-                message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Carpentry(e.g. door issues, closet issues, cupboard issues)\n4) MetalWork (e.g. Main door issues, railing issues) \n Masonry (e.g Wall issues, tile issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
+                message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n\n 3)Carpentry(e.g. door issues, closet issues, cupboard issues)\n\n 4) MetalWork (e.g. Main door issues, railing issues) \n\n5) Masonry (e.g Wall issues, tile issues)\n\n6) Other \n\n type EXIT to go back to Exit or MENU to return to main Menu'
                 sendWhatsappMessage(fromId, message)
             case "4":
                 chat.chat_purpose = 'create'
