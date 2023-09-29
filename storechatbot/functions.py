@@ -25,8 +25,11 @@ def sendWhatsappMessage(fromId, message):
 
 
 def AreYouDone(fromId, text):
-    message = 'Thank You for renting with us!\n\n If you want to perform another task Kindly type MENU to return to main Menu \n\n Otherwise, have an amazing day'
-    sendWhatsappMessage(fromId, message)
+    match text:
+        case "1":
+            sendWhatsappMessage(fromId, '1')
+        case "2":
+            sendWhatsappMessage(fromId, '2')
 
 
 def afterDeleteTransaction(fromId, text):
@@ -56,8 +59,6 @@ def verifyTransaction(fromId, text):
         # transaction.delete()
         chat.question_no = chat.question_no + 2
         chat.save()
-        sendWhatsappMessage(
-            fromId, "Your upload has been deleted,\n Would you like to reupload it, go back to main menu or Exit \n\n 1) Reupload it \n 2) Main Menu) \n 3) Exit")
 
     else:
         sendWhatsappMessage(
@@ -161,20 +162,23 @@ def createUsers(fromId, phoneId, text):
             sendWhatsappMessage(fromId, message)
 
 
-# def SendReceipt(fromId):
-#     message = 'Kindly send in your M-PESA OR BANK payment Receipt message below \n\n type EXIT to go back to Exit or MENU to return to main Menu'
-#     sendWhatsappMessage(fromId, message)
-    # parse_transaction_message(text)
-
-
-def PaymentDetails(fromId):
+def PaymentDetails(fromId, text):
     message = 'The Payment details \n\n type EXIT to go back to Exit or MENU to return to main Menu'
     sendWhatsappMessage(fromId, message)
 
 
-def Repair(fromId):
-    message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Structural issues (e.g. broken window, door issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
-    sendWhatsappMessage(fromId, message)
+def Repair(fromId, text):
+    chat = ChatSession.objects.get(profile__phoneNumber=fromId)
+    question = chat.question_no
+
+    match question:
+        case 1:
+            message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Carpentry(e.g. door issues, closet issues, cupboard issues)\n4) MetalWork (e.g. Main door issues, railing issues) \n Masonry (e.g Wall issues, tile issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
+            sendWhatsappMessage(fromId, message)
+            chat.question_no = chat.question_no + 1
+            chat.save()
+        case 2:
+            sendWhatsappMessage(fromId, text)
 
 
 def handleWhatsappChat(fromId, profileName, phoneId, text):
@@ -208,7 +212,7 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.save()
                 RepairRequest(fromId)
             case "4":
-                chat.chat_purpose = 'complaint'
+                chat.chat_purpose = 'create'
                 chat.question_no = chat.question_no+1
                 chat.save()
                 message = 'What house Number are you creating a user for'
@@ -228,7 +232,23 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
             case 2:
                 verifyTransaction(fromId, text)
             case 3:
+                sendWhatsappMessage(
+                    fromId, "Your upload has been successfully saved\n Would you like to go back to main menu or Exit \n\n 1) Main Menu) \n 2) Exit")
                 AreYouDone(fromId, text)
             case 4:
+                sendWhatsappMessage(
+                    fromId, "Your upload has been deleted,\n Would you like to reupload it, go back to main menu or Exit \n\n 1) Reupload it \n 2) Main Menu) \n 3) Exit")
                 afterDeleteTransaction(fromId, text)
-                # sendWhatsappMessage(fromId, "chat.question_no")
+    elif chat.chat_purpose == 'payment':
+        match chat.question_no:
+            case 1:
+                PaymentDetails(fromId, text)
+                chat.question_no = chat.question_no + 1
+                chat.save()
+
+    elif chat.chat_purpose == 'complaint':
+        match chat.question_no:
+            case 1:
+                Repair(fromId, text)
+                chat.question_no = chat.question_no + 1
+                chat.save()

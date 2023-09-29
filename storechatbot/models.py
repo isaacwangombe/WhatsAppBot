@@ -104,14 +104,25 @@ class RepairRequest(models.Model):
         ('4', 'Good'),
         ('5', 'Excellent'),
     ]
+
+    RepairTypes = [
+        ('1', 'Plumbing'),
+        ('2', 'Electric'),
+        ('3', 'Carpentry'),
+        ('4', 'Masonry'),
+        ('5', 'Metalwork'),
+        ('6', 'General'),
+
+    ]
     renter = models.ForeignKey(
         Profiles, on_delete=models.CASCADE, null=True, blank=True)
-    type = models.CharField(max_length=100, null=True, blank=True)
+    type = models.CharField(choices=RepairTypes,
+                            max_length=100, null=True, blank=True)
     description = models.CharField(max_length=500, null=True, blank=True)
     status = models.CharField(
         choices=StatusOptions, max_length=100, null=True, blank=True)
     repair_cost = models.IntegerField(blank=True, null=True)
-    rating = models.IntegerField(blank=True, null=True)
+    rating = models.IntegerField(choices=Ratings, blank=True, null=True)
     review = models.IntegerField(blank=True, null=True)
     # Other fields for repair request information
 
