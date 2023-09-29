@@ -170,12 +170,20 @@ def PaymentDetails(fromId, text):
 def Repair(fromId, text):
     chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     question = chat.question_no
-
+    renter = Profiles.objects.get(phoneNumber=fromId)
     match question:
         case 1:
-            sendWhatsappMessage(fromId, text)
-            chat.question_no = chat.question_no + 1
-            chat.save()
+            match text:
+                case "1":
+                    request = RepairRequest.objects.create(
+                        renter=renter, type="1")
+                    chat.question_no = chat.question_no + 1
+                    chat.save()
+                case "2":
+                    request = RepairRequest.objects.create(
+                        renter=renter, type="2")
+
+                    sendWhatsappMessage(fromId, text)
         case 2:
             sendWhatsappMessage(fromId, "Why?")
 
