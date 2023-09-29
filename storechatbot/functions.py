@@ -173,8 +173,7 @@ def Repair(fromId, text):
 
     match question:
         case 1:
-            message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Carpentry(e.g. door issues, closet issues, cupboard issues)\n4) MetalWork (e.g. Main door issues, railing issues) \n Masonry (e.g Wall issues, tile issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
-            sendWhatsappMessage(fromId, message)
+            sendWhatsappMessage(fromId, text)
             chat.question_no = chat.question_no + 1
             chat.save()
         case 2:
@@ -210,7 +209,8 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.chat_purpose = 'complaint'
                 chat.question_no = chat.question_no+1
                 chat.save()
-                Repair(fromId, text)
+                message = 'Which kind of repair do you require today?\n\n 1) Water (eg lack of water, plumbing, water leakages)\n\n2) Electric (e.g. light not working, socket not working, shower not hot, broken fixtures)\n 3)Carpentry(e.g. door issues, closet issues, cupboard issues)\n4) MetalWork (e.g. Main door issues, railing issues) \n Masonry (e.g Wall issues, tile issues)\n\n type EXIT to go back to Exit or MENU to return to main Menu'
+                sendWhatsappMessage(fromId, message)
             case "4":
                 chat.chat_purpose = 'create'
                 chat.question_no = chat.question_no+1
@@ -246,9 +246,9 @@ def handleWhatsappChat(fromId, profileName, phoneId, text):
                 chat.question_no = chat.question_no + 1
                 chat.save()
 
-    # elif chat.chat_purpose == 'complaint':
-    #     match chat.question_no:
-    #         case 1:
-    #             Repair(fromId, text)
-    #             chat.question_no = chat.question_no + 1
-    #             chat.save()
+    elif chat.chat_purpose == 'complaint':
+        match chat.question_no:
+            case 1:
+                Repair(fromId, text)
+                chat.question_no = chat.question_no + 1
+                chat.save()
