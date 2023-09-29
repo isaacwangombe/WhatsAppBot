@@ -32,6 +32,30 @@ class Apartment(models.Model):
     last_updated = models.DateTimeField(blank=True, null=True)
 
 
+class RepairMen(models.Model):
+
+    RepairManTypes = [
+        ('General', 'General'),
+        ('Plumbing', 'Plumbing'),
+        ('Carpentry', 'Carpentry'),
+        ('Electric', 'Electric'),
+        ('Masonry', 'Masonry'),
+        ('Metalwork', 'Metalwork'),
+    ]
+    name = models.CharField(max_length=100, blank=True, null=True)
+    phone_number = models.CharField(max_length=10, blank=True, null=True)
+    rating = models.CharField(max_length=10, blank=True, null=True)
+    type = models.CharField(
+        choices=RepairManTypes, max_length=100, null=True, blank=True)
+    # Other fields for apartment information
+
+    # Utility Variable
+    uniqueId = models.CharField(
+        null=True, blank=True, unique=True, max_length=100)
+    date_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
+
+
 class Profiles(models.Model):
     RoleOptions = [
         ('Owner', 'Owner'),
@@ -73,6 +97,13 @@ class RepairRequest(models.Model):
         ('Pending', 'Pending'),
         ('Closed', 'Closed'),
     ]
+    Ratings = [
+        ('1', 'Very Poor'),
+        ('2', 'Poor'),
+        ('3', 'Average'),
+        ('4', 'Good'),
+        ('5', 'Excellent'),
+    ]
     renter = models.ForeignKey(
         Profiles, on_delete=models.CASCADE, null=True, blank=True)
     type = models.CharField(max_length=100, null=True, blank=True)
@@ -80,6 +111,8 @@ class RepairRequest(models.Model):
     status = models.CharField(
         choices=StatusOptions, max_length=100, null=True, blank=True)
     repair_cost = models.IntegerField(blank=True, null=True)
+    rating = models.IntegerField(blank=True, null=True)
+    review = models.IntegerField(blank=True, null=True)
     # Other fields for repair request information
 
     # Utility Variable
