@@ -51,10 +51,10 @@ def whatsappWebhook(request):
                             phoneNumber=fromId).last()
 
                         if profile.role == "Renter":
-                            handleUserChat(fromId, profileName, phoneId, text)
+                            handleUserChat(fromId, phoneId, text)
                         else:
                             handleManagerChat(
-                                fromId, profileName, phoneId, text)
+                                fromId, phoneId, text)
                         # createUsers(fromId, phoneId, text)
                         # parse_transaction_message(fromId, text)
                         # renter_payment(fromId, text)
