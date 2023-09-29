@@ -142,7 +142,7 @@ class RepairRequest(models.Model):
         super(RepairRequest, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"Repair Request for {self.apartment}"
+        return f"Repair Request for {self.type}"
 
 
 class Transaction(models.Model):
