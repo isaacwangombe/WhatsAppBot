@@ -178,7 +178,7 @@ def Repair(fromId, text):
             chat.question_no = chat.question_no + 1
             chat.save()
         case 2:
-            sendWhatsappMessage(fromId, str(text))
+            sendWhatsappMessage(fromId, "Why?")
 
 
 def handleWhatsappChat(fromId, profileName, phoneId, text):
