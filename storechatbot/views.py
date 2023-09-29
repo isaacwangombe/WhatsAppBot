@@ -47,7 +47,8 @@ def whatsappWebhook(request):
                         # message = 'RE: {} test was received'.format(text)
                         # sendWhatsappMessage(fromId, message)
 
-                        profile = Profiles.objects.get(phoneNumber=fromId)
+                        profile = Profiles.objects.filter(
+                            phoneNumber=fromId).last()
 
                         if profile.role == "Renter":
                             handleUserChat(fromId, profileName, phoneId, text)
