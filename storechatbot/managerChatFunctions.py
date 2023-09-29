@@ -127,8 +127,8 @@ def handleManagerChat(fromId, phoneId, text):
         chat = ChatSession.objects.create(profile=profile)
 
         # create a chat session
-        message = 'Test Manager message'
-        sendWhatsappMessage(fromId, message)
+    message = 'Test Manager message'
+    sendWhatsappMessage(fromId, message)
 
     if chat.question_no == 0:
         match text:
