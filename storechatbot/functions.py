@@ -178,6 +178,7 @@ def Repair(fromId, text):
             match text:
                 case "1":
                     request.type = "1"
+                    request.save()
 
                 case "2":
                     request.type = "2"
