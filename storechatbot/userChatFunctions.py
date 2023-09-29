@@ -3,12 +3,9 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 import requests
-from django.http import FileResponse
-from reportlab.pdfgen import canvas
 import re
 from .aifile import *
 from .models import *
-from django.core.exceptions import ObjectDoesNotExist
 
 
 def sendWhatsappMessage(fromId, message):
@@ -172,7 +169,7 @@ def Repair(fromId, text):
     question = chat.question_no
     renter = Profiles.objects.get(phoneNumber=fromId)
     request = RepairRequest.objects.create(
-        renter=renter)
+        renter=renter, status="1")
     match question:
         case 1:
             match text:
@@ -201,21 +198,23 @@ def Repair(fromId, text):
         case 2:
             request.description = text
             request.save()
+            message = "Thank You, We will send over a repair man  as soon as possible"
             sendWhatsappMessage(fromId, "Why?")
 
 
-def handleWhatsappChat(fromId, profileName, phoneId, text):
+def handleUserChat(fromId, phoneId, text):
+
     try:
         chat = ChatSession.objects.get(profile__phoneNumber=fromId)
     except:
 
         profile = Profiles.objects.get(phoneNumber=fromId)
+        chat = ChatSession.objects.create(profile=profile)
 
         # create a chat session
-        chat = ChatSession.objects.create(profile=profile)
         message = 'Welcome to the Apartment Bot 😀\n What would you like to do today?\n\n Please choose any of the following options by typing 1, 2 or 3\n\n1)Send in payment transaction\n2)Get payment details\n3)Request for maintanance'
         sendWhatsappMessage(fromId, message)
-        return
+
     if chat.question_no == 0:
         match text:
             case "1":

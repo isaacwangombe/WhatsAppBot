@@ -94,8 +94,8 @@ class Profiles(models.Model):
 class RepairRequest(models.Model):
 
     StatusOptions = [
-        ('Pending', 'Pending'),
-        ('Closed', 'Closed'),
+        ('1', 'Pending'),
+        ('2', 'Closed'),
     ]
     Ratings = [
         ('1', 'Very Poor'),
